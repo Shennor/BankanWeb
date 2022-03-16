@@ -1,0 +1,10 @@
+
+
+.customButton{
+    cursor: pointer;
+    border-color: #26D9D9;
+    border-radius: 0.3rem;
+    text-align: center;
+    color: #0F5757;
+    backface-visibility: hidden;
+}

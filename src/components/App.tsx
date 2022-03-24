@@ -1,12 +1,30 @@
 import React from 'react';
-import RegistrationPage from "./RegistrationPage";
+import {
+    Outlet,
+    Link,
+} from "react-router-dom";
 
-import '../index.css'
 
-function App() {
+export default function App() {
     return (
-        RegistrationPage()
+        <div>
+            <nav>
+            <ul>
+                <li>
+                    <Link to="/about">About</Link>
+                </li>
+                <li>
+                    <Link to="/home">Home</Link>
+                </li>
+                <li>
+                    <Link to="/signup">Sign Up</Link>
+                </li>
+                <li>
+                    <Link to="/login">Log In</Link>
+                </li>
+            </ul>
+            </nav>
+            <Outlet />
+        </div>
     );
 }
-
-export default App;

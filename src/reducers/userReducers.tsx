@@ -1,12 +1,10 @@
 import {combineReducers} from "redux";
 import {isLoggedReducer} from "./isLogged";
-import {tokenReducer} from "./token";
 import {userIdReducer} from "./userId";
 import {usernameReducer} from "./username";
 
-export const allReducers = combineReducers({
+export const UserReducers = combineReducers({
     isLogged: isLoggedReducer,
-    token: tokenReducer,
     userId: userIdReducer,
     username: usernameReducer
 })

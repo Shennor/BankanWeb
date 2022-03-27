@@ -1,8 +1,7 @@
-import {Action, configureStore, Reducer} from "@reduxjs/toolkit";
-import {IAuthAction} from "../actions/authAction";
+import {Action, Reducer} from "@reduxjs/toolkit";
 
-export const isLoggedReducer : Reducer<boolean, IAuthAction> =
-    (state = false, action: IAuthAction) => {
+export const isLoggedReducer : Reducer<boolean, Action> =
+    (state = false, action: Action) => {
     switch (action.type) {
         case "login":
             return true

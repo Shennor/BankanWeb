@@ -1,21 +1,37 @@
-import {Component, FC} from "react";
-import {store} from "../index";
+import {userStore} from "../index";
+import {API, WORKSPACE} from "../constants";
+import {getToken} from "../tokenUtils";
 
-interface BoardProps{
+interface Board{
+    id: number
+    name: string
+    description: string
+    isOpen: boolean
+    creationData: bigint
+}
 
+interface Workspace{
+    id: number,
+    name: string,
+    listOfBoardEntities: Board[]
 }
 
 export const getBoards = () => {
-        fetch("/api/workspace/user/1",
-            {
-                method: "post",
-                headers: {
-                    "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXNoYUBtYWlsLnJ1IiwiaWF0IjoxNjQ4MTQ1NjU1LCJleHAiOjE2NDgyMzIwNTV9.I0M7ddey5McDKqOTlB_tF7Sz-aMjhKoV9IRP-pPoNTJSPJguM7C77s3Ui9xiuRc1P9TEylJn0sXnsCtV91dNFw"
+    let token = getToken()
+    let userId = userStore.getState().userId
+    fetch(`${API}${WORKSPACE}user/${userId}`,
+        {
+            mode: "cors",
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json",
+                "Connection": "keep-alive",
                 },
-            })
-            .then(res => console.log(res))
-    }
-
+        })
+        .then(async res => await res.json() as Workspace)
+        .then(workspace => workspace)
+}
 
 
 // "*/api/workspace/user/{userId}" - get list of boards of user with userId

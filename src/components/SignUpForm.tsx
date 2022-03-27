@@ -1,8 +1,9 @@
 import React, {FC, MouseEventHandler, useState} from "react";
 import Input from "./UI/Input/input";
 import Button from "./UI/Button/button";
+import {register} from "../controllers/AuthController";
 
-interface SignUpInput {
+export interface ISignUpInput {
     username: string,
     email: string,
     password: string,
@@ -15,12 +16,20 @@ interface SignUpFormProps {
 
 
 const SignUpForm: FC<SignUpFormProps> = ({setH1State}) => {
-    const [input, setInput] = useState<SignUpInput>({
+    const [input, setInput] = useState<ISignUpInput>({
         username: "",
         email: "",
         password: "",
         confirmPassword: ""
     })
+
+    const validateEmail = (email : string) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
 
     const signUp: MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault()
@@ -28,11 +37,14 @@ const SignUpForm: FC<SignUpFormProps> = ({setH1State}) => {
             alert("Passwords are not the same!")
             return
         }
+        if(!validateEmail(input.email)){
+            alert("Email validation failed!")
+            return
+        }
         // check data
-        // make request to the server
+        // TODO: exception handling
+        register(input.username, input.email, input.password)
     }
-
-    // work with server = hooks
 
     return(
         <form>

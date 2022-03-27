@@ -14,6 +14,10 @@ import {LoginPage} from "./components/LoginPage";
 
 export const userStore = createStore(UserReducers)
 
+function BoardPage() {
+    return null;
+}
+
 ReactDOM.render(
     <Provider store = {userStore}>
         <React.StrictMode>
@@ -23,6 +27,7 @@ ReactDOM.render(
                     <Route path="signup" element={<RegistrationPage/>}/>
                     <Route path="/login" element={<LoginPage/>}/>
                     <Route path="/home" element={<HomePage/>}/>
+                    <Route path="/board/:id" element={<BoardPage />}/>
                 </Routes>
             </BrowserRouter>
         </React.StrictMode>

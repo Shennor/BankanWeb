@@ -2,7 +2,7 @@ import {userStore} from "../index";
 import {API, WORKSPACE} from "../constants";
 import {getToken} from "../tokenUtils";
 
-interface Board{
+export interface Board{
     id: number
     name: string
     description: string
@@ -19,7 +19,7 @@ interface Workspace{
 export const getBoards = () => {
     let token = getToken()
     let userId = userStore.getState().userId
-    fetch(`${API}${WORKSPACE}user/${userId}`,
+    return fetch(`${API}${WORKSPACE}user/${userId}`,
         {
             mode: "cors",
             method: "GET",
@@ -30,7 +30,7 @@ export const getBoards = () => {
                 },
         })
         .then(async res => await res.json() as Workspace)
-        .then(workspace => workspace)
+        .then(workspace => workspace.listOfBoardEntities)
 }
 
 

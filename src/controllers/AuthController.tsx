@@ -1,6 +1,7 @@
 import {API, AUTH} from "../constants"
-import {userStore} from "../index"
 import {IAuthAction} from "../actions/authAction"
+import {connect} from "react-redux";
+import {userStore} from "../index";
 
 interface ILoginResponse{
     accessToken: string,
@@ -33,6 +34,7 @@ export function login(username: string, password: string){
         })
 }
 
+
 export function register(username: string, email: string, password: string){
     fetch(
         `${API}${AUTH}signup`,
@@ -43,10 +45,12 @@ export function register(username: string, email: string, password: string){
                 "Content-Type": "application/json",
                 "Connection": "keep-alive"
             },
-            body: `"login": ${email},
-                   "password": ${password},
-                   "username": ${username},
-                   "role": ["user"]`
+            body: JSON.stringify({
+                username: username,
+                login: email,
+                password: password,
+                role: ["user"]
+            })
         })
 }
 

@@ -19,6 +19,9 @@ interface Workspace{
 export const getBoards = () => {
     let token = getToken()
     let userId = userStore.getState().userId
+    // axios - 401 -> refresh (interceptor)
+
+
     return fetch(`${API}${WORKSPACE}user/${userId}`,
         {
             mode: "cors",

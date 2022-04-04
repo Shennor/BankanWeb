@@ -1,6 +1,8 @@
 import React, {FC, MouseEventHandler, useState} from "react";
 import Button from "./UI/Button/button";
 import {login, register} from "../controllers/AuthController";
+import {userStore} from "../index";
+import {wait} from "@testing-library/user-event/dist/utils";
 
 export interface ISignUpInput {
     email: string,
@@ -16,6 +18,7 @@ const SignInForm: FC = () => {
     const signIn: MouseEventHandler<HTMLButtonElement> = (e) => {
         // check data
         // TODO: exception handling
+        e.preventDefault()
         login(input.email, input.password)
     }
 
@@ -25,7 +28,7 @@ const SignInForm: FC = () => {
             onChange={(e) => {input.email = e.target.value}}/>
             <input type="text" placeholder="Password" required={true} maxLength={50}
             onChange={(e) => {input.password = e.target.value}}/>
-            <Button onClick={signIn}>Sign me up!</Button>
+            <Button onClick={signIn}>Sign in</Button>
         </form>
     )
 }

@@ -4,7 +4,7 @@ import {createStore} from "redux";
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes, useParams} from "react-router-dom";
 import RegistrationPage from "./components/RegistrationPage";
 import {UserReducers} from "./reducers/userReducers"
 
@@ -15,7 +15,9 @@ import {LoginPage} from "./components/LoginPage";
 export const userStore = createStore(UserReducers)
 
 function BoardPage() {
-    return null;
+    const { id } = useParams()
+
+    return(<div>Hi</div>);
 }
 
 ReactDOM.render(

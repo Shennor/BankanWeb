@@ -4,6 +4,7 @@ import {
     Link,
 } from "react-router-dom";
 
+// context API instead of redux
 
 export default function App() {
     return (

@@ -1,7 +1,6 @@
 import {API, AUTH} from "../constants"
-import {IAuthAction} from "../actions/authAction"
-import {connect} from "react-redux";
-import {userStore} from "../index";
+import axios from "axios";
+import {AuthInstance} from "./axios.instances";
 
 interface ILoginResponse{
     accessToken: string,
@@ -12,55 +11,25 @@ interface ILoginResponse{
 }
 
 export function login(username: string, password: string){
-    fetch(`${API}${AUTH}signin`,
-        {
-            mode: "cors",
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Connection": "keep-alive"
-            },
-            body: JSON.stringify({"login" : username, "password": password})
-        })
-        .then(async res => await res.json() as ILoginResponse)
-        .then(body => {
-            document.cookie = `token=${body.accessToken}`
-            const action: IAuthAction = {
-                type: "login",
-                username: body.login,
-                userId: body.id
-            }
-            userStore.dispatch(action)
-        })
+    AuthInstance.post(`signin`, {
+        data: {login: username, password: password}
+    })
 }
 
 
 export function register(username: string, email: string, password: string){
-    fetch(
-        `${API}${AUTH}signup`,
-        {
-            mode: "cors",
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Connection": "keep-alive"
-            },
-            body: JSON.stringify({
-                username: username,
-                login: email,
-                password: password,
-                role: ["user"]
-            })
-        })
+    AuthInstance.post(`signup`, {
+        data: {
+            username: username,
+            login: email,
+            password: password,
+            role: ["user"]
+        }
+    })
+
 }
 
 export function logout(){
-    let action : IAuthAction = {
-        type: "logout",
-        username: "",
-        userId: -1
-    }
-    userStore.dispatch(action)
-    document.cookie = "token="
+
 }
 

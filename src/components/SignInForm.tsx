@@ -1,8 +1,6 @@
 import React, {FC, MouseEventHandler, useState} from "react";
 import Button from "./UI/Button/button";
-import {login, register} from "../controllers/AuthController";
-import {userStore} from "../index";
-import {wait} from "@testing-library/user-event/dist/utils";
+import {login} from "../controllers/AuthController";
 
 export interface ISignUpInput {
     email: string,

@@ -1,17 +1,15 @@
 import {getBoards} from "../controllers/BoardController";
-import {useState} from "react";
-import {BoardButton} from "./UI/BoardButton";
+import {useContext, useState} from "react";
+import {UserContext, WorkspaceContext} from "../context";
 
-interface HomePageProps{
-
-}
 
 export const HomePage = () => {
     const [boards, setBoards] = useState(getBoards())
+    const [userInfo, setUserInfo] = useContext(UserContext)
 
     return(
-        <div>
-            {boards.then(boards => boards.map(board => <BoardButton boardInfo={board}/>))}
-        </div>
+        <WorkspaceContext.Provider value={[boards, setBoards]}>
+            <h1>Welcome back, {userInfo.username}</h1>
+        </WorkspaceContext.Provider>
     )
 }

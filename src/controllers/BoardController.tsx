@@ -1,6 +1,7 @@
-import {userStore} from "../index";
 import {API, WORKSPACE} from "../constants";
 import {getToken} from "../tokenUtils";
+import axios from "axios";
+import {WorkspaceInstance} from "./axios.instances";
 
 export interface Board{
     id: number
@@ -16,24 +17,13 @@ interface Workspace{
     listOfBoardEntities: Board[]
 }
 
+// "Authorization": `Bearer ${token}`,
+// "Content-Type": "application/json",
+// "Connection": "keep-alive",
+
+
 export const getBoards = () => {
-    let token = getToken()
-    let userId = userStore.getState().userId
-    // axios - 401 -> refresh (interceptor)
-
-
-    return fetch(`${API}${WORKSPACE}user/${userId}`,
-        {
-            mode: "cors",
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json",
-                "Connection": "keep-alive",
-                },
-        })
-        .then(async res => await res.json() as Workspace)
-        .then(workspace => workspace.listOfBoardEntities)
+    WorkspaceInstance.get('user/')
 }
 
 

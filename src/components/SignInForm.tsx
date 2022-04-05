@@ -1,6 +1,7 @@
-import React, {FC, MouseEventHandler, useState} from "react";
+import React, {FC, MouseEventHandler, useContext, useState} from "react";
 import Button from "./UI/Button/button";
 import {login} from "../controllers/AuthController";
+import {UserContext} from "../context";
 
 export interface ISignUpInput {
     email: string,
@@ -13,11 +14,21 @@ const SignInForm: FC = () => {
         password: ""
     })
 
+    const [userInfo, setUserInfo] = useContext(UserContext)!
+
     const signIn: MouseEventHandler<HTMLButtonElement> = (e) => {
-        // check data
-        // TODO: exception handling
         e.preventDefault()
         login(input.email, input.password)
+            .catch(() => alert("Server error while trying to sign in."))
+            .then(loginResponse => {
+                setUserInfo({
+                    username: loginResponse!.username,
+                    login: loginResponse!.login,
+                    id: loginResponse!.id,
+                    isLogged: true,
+                    token: loginResponse!.accessToken
+                })
+            })
     }
 
     return(

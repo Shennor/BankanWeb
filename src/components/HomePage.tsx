@@ -1,15 +1,18 @@
 import {getBoards} from "../controllers/BoardController";
 import {useContext, useState} from "react";
 import {UserContext, WorkspaceContext} from "../context";
+import {IBoard, IWorkspace} from "../data/DTO";
 
 
 export const HomePage = () => {
-    const [boards, setBoards] = useState(getBoards())
-    const [userInfo, setUserInfo] = useContext(UserContext)
+    const [userInfo, setUserInfo] = useContext(UserContext)!
+    const [boards, setBoards] = useContext(WorkspaceContext)!
 
     return(
-        <WorkspaceContext.Provider value={[boards, setBoards]}>
+        <div>
             <h1>Welcome back, {userInfo.username}</h1>
-        </WorkspaceContext.Provider>
+            {console.log(userInfo)}
+            {console.log(boards)}
+        </div>
     )
 }

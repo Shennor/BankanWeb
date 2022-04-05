@@ -1,9 +1,9 @@
 import {FC} from "react";
-import {Board} from "../../controllers/BoardController";
 import {Link} from "react-router-dom";
+import {IBoard} from "../../data/DTO";
 
 interface IBoardButtonProps {
-    boardInfo: Board
+    boardInfo: IBoard
 }
 
 export const BoardButton: FC<IBoardButtonProps> = (props) => {

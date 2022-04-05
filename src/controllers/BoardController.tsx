@@ -1,29 +1,18 @@
-import {API, WORKSPACE} from "../constants";
-import {getToken} from "../tokenUtils";
-import axios from "axios";
 import {WorkspaceInstance} from "./axios.instances";
+import {IWorkspace} from "../data/DTO";
 
-export interface Board{
-    id: number
-    name: string
-    description: string
-    isOpen: boolean
-    creationData: bigint
-}
-
-interface Workspace{
-    id: number,
-    name: string,
-    listOfBoardEntities: Board[]
-}
-
-// "Authorization": `Bearer ${token}`,
 // "Content-Type": "application/json",
 // "Connection": "keep-alive",
 
-
-export const getBoards = () => {
-    WorkspaceInstance.get('user/')
+export const getBoards = (id: number, token: string) => {
+    WorkspaceInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`
+    WorkspaceInstance.defaults.headers.common["Access-Control-Allow-Origin"] = "*"
+    return WorkspaceInstance.get(`user/${id}`)
+        .then((response) => response.data as IWorkspace)
+        .catch((error) => {
+            console.log(error)
+            return undefined
+        })
 }
 
 

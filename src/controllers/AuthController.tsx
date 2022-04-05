@@ -1,35 +1,34 @@
-import {API, AUTH} from "../constants"
-import axios from "axios";
 import {AuthInstance} from "./axios.instances";
+import {ILoginResponse} from "../data/DTO";
 
-interface ILoginResponse{
-    accessToken: string,
-    id: number,
-    login: string,
-    roles: string[],
-    tokenType: string
-}
-
-export function login(username: string, password: string){
-    AuthInstance.post(`signin`, {
-        data: {login: username, password: password}
+export function login(username: string, password: string) {
+    let res = AuthInstance.post(`signin`, {
+        login: username, password: password
     })
+        .then((response) => response.data as ILoginResponse
+        )
+        .catch((error) => {
+            console.log(error)
+            return undefined
+        })
+    return res
 }
 
 
-export function register(username: string, email: string, password: string){
-    AuthInstance.post(`signup`, {
-        data: {
-            username: username,
-            login: email,
-            password: password,
-            role: ["user"]
-        }
+export function register(username: string, email: string, password: string) {
+    return AuthInstance.post(`signup`, {
+        username: username,
+        login: email,
+        password: password,
+        role: ["user"]
     })
+        .then(function (response) {
+            return response.data as string
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
 
 }
 
-export function logout(){
-
-}
 

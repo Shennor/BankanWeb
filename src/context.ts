@@ -1,8 +1,36 @@
 import React, {useState} from "react";
+import {IBoard, ILoginResponse, IWorkspace} from "./data/DTO";
 
-export const UserContext = React.createContext()
+export type UserState = [
+    {
+        token: string,
+        id: number,
+        login: string,
+        isLogged: boolean,
+        username: string,
+    },
+    React.Dispatch<React.SetStateAction<{
+        token: string,
+        id: number,
+        login: string,
+        isLogged: boolean,
+        username: string,
+    }>>
+];
 
-export const WorkspaceContext = React.createContext()
+export type WorkspaceState = [
+    IWorkspace,
+    React.Dispatch<React.SetStateAction<IWorkspace>>
+];
 
-export const BoardContext = React.createContext()
+export type BoardState = [
+    IBoard,
+    React.Dispatch<React.SetStateAction<IBoard>>
+];
+
+export const UserContext = React.createContext<UserState | undefined>(undefined)
+
+export const WorkspaceContext = React.createContext<WorkspaceState | undefined>(undefined)
+
+export const BoardContext = React.createContext<BoardState | undefined>(undefined)
 

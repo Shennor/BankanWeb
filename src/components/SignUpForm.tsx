@@ -2,6 +2,7 @@ import React, {FC, MouseEventHandler, useState} from "react";
 import Input from "./UI/Input/input";
 import Button from "./UI/Button/button";
 import {register} from "../controllers/AuthController";
+import classes from "../css/form.module.css";
 
 export interface ISignUpInput {
     username: string,
@@ -47,18 +48,32 @@ const SignUpForm: FC<SignUpFormProps> = ({setH1State}) => {
     }
 
     return(
-        <form>
-            <input type="text" placeholder="Username" required={true} maxLength={40}
-            onChange={(e) => {
-                input.username = e.target.value
-                setH1State(input.username)
-            }}/>
-            <input type="text" placeholder="Email" required={true} maxLength={40}
-            onChange={(e) => {input.email = e.target.value}}/>
-            <input type="text" placeholder="Password" required={true} maxLength={50}
-            onChange={(e) => {input.password = e.target.value}}/>
-            <input type="text" placeholder="Confirm password" required={true} maxLength={50}
-            onChange={(e) => {input.confirmPassword = e.target.value}}/>
+        <form className={classes.authForm}>
+            <ul>
+                <li className={classes.inputContainer}>
+                    <h5>Username:</h5>
+                    <input type="text" placeholder="Username" required={true} maxLength={40}
+                           onChange={(e) => {
+                               input.username = e.target.value
+                               setH1State(input.username)
+                           }}/>
+                </li>
+                <li className={classes.inputContainer}>
+                    <h5>Email:</h5>
+                    <input type="text" placeholder="Email" required={true} maxLength={40}
+                           onChange={(e) => {input.email = e.target.value}}/>
+                </li>
+                <li className={classes.inputContainer}>
+                    <h5>Password:</h5>
+                    <input type="text" placeholder="Password" required={true} maxLength={50}
+                           onChange={(e) => {input.password = e.target.value}}/>
+                </li>
+                <li className={classes.inputContainer}>
+                    <h5></h5>
+                    <input type="text" placeholder="Confirm password" required={true} maxLength={50}
+                           onChange={(e) => {input.confirmPassword = e.target.value}}/>
+                </li>
+            </ul>
             <Button onClick={signUp}>Sign me up!</Button>
         </form>
     )

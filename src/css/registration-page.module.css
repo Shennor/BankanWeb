@@ -1,0 +1,28 @@
+.registrationContent {
+    padding: 75px 200px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.registrationContainer {
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.greeting {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 72px;
+    line-height: 84px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.mainLogo {
+    max-width: 250px;
+    height: auto;
+}

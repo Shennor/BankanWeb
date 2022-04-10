@@ -1,0 +1,33 @@
+
+
+.authForm {
+    display: flex;
+    padding: 10px 10px;
+    flex-direction: column;
+    align-content: center;
+}
+
+.authForm ul {
+    margin-bottom: 20px;
+}
+
+.inputContainer {
+    font-family: Roboto-Regular;
+    font-weight: 400;
+    display: flex;
+    padding: 10px;
+}
+
+.inputContainer h5 {
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+    text-align: right;
+    vertical-align: middle;
+    padding-right: 20px;
+}
+
+.inputContainer input {
+    padding-left: 10px;
+    border-radius: 4px;
+}

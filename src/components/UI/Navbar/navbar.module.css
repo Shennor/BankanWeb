@@ -1,0 +1,73 @@
+
+.header {
+    padding: 7px 25px;
+    background: #494E50;
+    height: 50px;
+    max-height: 50px;
+}
+
+.headerRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: RedHatText-Regular;
+    color: #FFFFFF;
+}
+
+
+.navigation {
+}
+
+Link {
+    color: #FFFFFF;
+}
+
+.navigationMenu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: -24px;
+}
+
+.profileImg {
+    justify-content: center;
+    max-height: 30px;
+    border-radius: 50%;
+}
+
+.navigationBtn {
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    background-color: grey;
+    color: #FFFFFF;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 4px;
+    transition: opacity 0.2s ease;
+}
+
+.navigationBtn:hover {
+    opacity: 0.8;
+    color: #FFFFFF;
+}
+
+.flexMenuList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flexMenuList li + li{
+    margin-left: 70px;
+}
+
+.flexButtonList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.flexButtonList li + li {
+    margin-left: 30px;
+}
+

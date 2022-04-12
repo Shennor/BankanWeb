@@ -1,8 +1,9 @@
 import React, {FC, MouseEventHandler, useState} from "react";
-import Input from "./UI/Input/input";
-import Button from "./UI/Button/button";
-import {register} from "../controllers/AuthController";
-import classes from "../css/form.module.css";
+import Input from "../UI/Input/input";
+import {register} from "../../controllers/AuthController";
+import classes from "../../css/form.module.css";
+import {Button} from "react-bootstrap";
+import {CianButton} from "../UI/Button/button";
 
 export interface ISignUpInput {
     username: string,
@@ -74,7 +75,7 @@ const SignUpForm: FC<SignUpFormProps> = ({setH1State}) => {
                            onChange={(e) => {input.confirmPassword = e.target.value}}/>
                 </li>
             </ul>
-            <Button onClick={signUp}>Sign me up!</Button>
+            <CianButton onClick={signUp}>Sign me up!</CianButton>
         </form>
     )
 }

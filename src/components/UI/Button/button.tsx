@@ -2,7 +2,7 @@ import {FC} from "react";
 import classes from "./button.module.css"
 
 
-const CustomButton: FC<JSX.IntrinsicElements['button']> = ({children, ...props}) => {
+export const CianButton: FC<JSX.IntrinsicElements['button']> = ({children, ...props}) => {
 
     return (
         <button {...props} className={classes.customButton}>
@@ -11,4 +11,12 @@ const CustomButton: FC<JSX.IntrinsicElements['button']> = ({children, ...props})
     )
 }
 
-export default CustomButton
+
+export const GreyButton: FC<JSX.IntrinsicElements['button']> = ({children, ...props}) => {
+
+    return (
+        <button {...props} className={classes.greyButton}>
+            {children}
+        </button>
+    )
+}

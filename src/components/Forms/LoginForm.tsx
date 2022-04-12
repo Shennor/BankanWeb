@@ -1,10 +1,9 @@
 import React, {FC, MouseEventHandler, useContext, useState} from "react";
-import Button from "./UI/Button/button";
-import {login} from "../controllers/AuthController";
-import {UserContext} from "../context";
+import {login} from "../../controllers/AuthController";
+import {UserContext} from "../../context";
 
-import classes from "../css/form.module.css"
-import CustomButton from "./UI/Button/button";
+import classes from "../../css/form.module.css"
+import { CianButton } from "../UI/Button/button";
 
 export interface ILoginInput {
     email: string,
@@ -52,7 +51,7 @@ const LoginForm: FC = () => {
                            }}/>
                 </li>
             </ul>
-            <CustomButton className="cian-btn" onClick={signIn}>Sign in</CustomButton>
+            <CianButton className="cian-btn" onClick={signIn}>Sign in</CianButton>
         </form>
     )
 }

@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import { Routes, Route, BrowserRouter } from "react-router-dom"
-import RegistrationPage from "./RegistrationPage";
-import {LoginPage} from "./LoginPage";
-import {HomePage} from "./HomePage";
+import RegistrationPage from "./Pages/RegistrationPage";
+import {LoginPage} from "./Pages/LoginPage";
+import {HomePage} from "./Pages/HomePage";
 import Navbar from "./UI/Navbar/navbar";
 import {UserContext} from "../context";
 
@@ -20,6 +20,7 @@ export default function App() {
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/home" element={<HomePage/>}/>
                 <Route path="/board/:id"/>
+                <Route path="/group"/>
             </Routes>
         </BrowserRouter>
     );

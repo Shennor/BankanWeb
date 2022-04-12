@@ -1,10 +1,22 @@
 
 
 .customButton{
+    padding: 4px 4px;
     cursor: pointer;
     border: 2px solid #26D9D9;
     border-radius: 10px;
     text-align: center;
     color: #0F5757;
+    backface-visibility: hidden;
+}
+
+
+.greyButton{
+    padding: 5px 5px;
+    background-color: #DBDBDB;
+    cursor: pointer;
+    border-radius: 10px;
+    text-align: center;
+    color: #494E50;
     backface-visibility: hidden;
 }

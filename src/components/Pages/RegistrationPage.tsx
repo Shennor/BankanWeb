@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import SignUpForm from "./SignUpForm";
+import SignUpForm from "../Forms/SignUpForm";
 
-import classes from "../css/registration-page.module.css"
-import {BigLogo} from "../images/images";
+import classes from "../../css/registration-page.module.css"
+import {BigLogo} from "../../images/images";
 
 const RegistrationPage = () => {
     const [h1State, setH1State] = useState<string>("Username")

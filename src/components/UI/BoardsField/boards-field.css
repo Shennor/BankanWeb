@@ -1,0 +1,9 @@
+
+
+.boardField {
+    width: 100%;
+    display: inline-flex;
+    justify-content: start;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

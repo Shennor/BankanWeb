@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {MouseEventHandler, useContext} from 'react';
 import {UserContext} from "../../../context";
 import {HomeIconWhite, Logo} from "../../../images/images";
 import {Link} from "react-router-dom";
@@ -27,7 +27,7 @@ const UserMenuOptional = () => {
     return (<ul/>)
 }
 
-const NavButtonsOptional = () => {
+const NavButtonsOptional = (logout : any) => {
     const [userInfo, setUserInfo] = useContext(UserContext)!
 
     if (!userInfo.isLogged) return (
@@ -38,14 +38,15 @@ const NavButtonsOptional = () => {
                 </button>
             </li>
             <li>
-                <Link to='/login'>Sign Up</Link>
+                <Link to='/signup'>Sign Up</Link>
             </li>
         </ul>
     )
     return (
         <ul>
             <li>
-                <button className={classes.navigationBtn}>
+                <button className={classes.navigationBtn}
+                        onClick={logout}>
                     <Link to='/login'>Exit</Link>
                 </button>
             </li>
@@ -56,6 +57,19 @@ const NavButtonsOptional = () => {
 
 const Navbar = () => {
     const [userInfo, setUserInfo] = useContext(UserContext)!
+
+    const logout: MouseEventHandler<HTMLButtonElement> = (e) => {
+        e.preventDefault()
+        setUserInfo(it => {
+            it.username = ""
+            it.login = ""
+            it.id = -1
+            it.isLogged = false
+            it.token = ""
+            return it
+        })
+    }
+
     return (
         <>
             <nav className={classes.header}>
@@ -70,7 +84,7 @@ const Navbar = () => {
                             {UserMenuOptional()}
                         </div>
                         <div className="header-login">
-                            {NavButtonsOptional()}
+                            {NavButtonsOptional(logout)}
                         </div>
                     </div>
                 </div>

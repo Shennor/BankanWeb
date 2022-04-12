@@ -51,6 +51,12 @@
     width: 80%;
     height: 80%;
 }
+.boardButton input{
+    background-color: inherit;
+    padding: 5% 5%;
+    height: 90%;
+    width: 90%;
+}
 
 .createBoardButton button {
     color: #26D9D9;

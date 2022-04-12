@@ -1,18 +1,31 @@
 import {WorkspaceContext} from "../../../context";
-import {useContext} from "react";
+import React, {FC, useContext, useState} from "react";
 import {BoardButton} from "../BoardButtons/BoardButton";
 import {CreateBoardButton} from "../BoardButtons/CreateBoardButton";
 
 import "./boards-field.css"
+import {BoardInputButton} from "../BoardButtons/BoardInputButton";
 
-export const BoardsField = () => {
+interface IBoardsFieldProps {
+    onCreate: () => void
+}
+
+export const BoardsField: FC<IBoardsFieldProps> = (props: IBoardsFieldProps) => {
     const [workspace, setWorkspace] = useContext(WorkspaceContext)!
     const boards = workspace.listOfBoardEntities
+    const [boardCreatingState, setBoardCreatingState] = useState(false)
 
-    return(
+    const boardInput = () => {
+        if (boardCreatingState)
+            return <BoardInputButton setCreationState={setBoardCreatingState}/>
+        return <></>
+    }
+
+    return (
         <div className={"boardField"}>
             {boards.map(board => <BoardButton boardInfo={board}/>)}
-            <CreateBoardButton/>
+            {boardInput()}
+            <CreateBoardButton onClick={setBoardCreatingState}/>
         </div>
     )
 }

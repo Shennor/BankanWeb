@@ -1,4 +1,13 @@
 
+export interface IUserInfo {
+    token: string,
+    id: number,
+    login: string,
+    isLogged: boolean,
+    username: string,
+}
+
+
 export interface ILoginResponse {
     accessToken: string,
     id: number,

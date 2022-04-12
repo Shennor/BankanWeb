@@ -1,7 +1,7 @@
 
 
-.customButton{
-    padding: 4px 4px;
+.cianButton{
+    padding: 0px 35px;
     cursor: pointer;
     border: 2px solid #26D9D9;
     border-radius: 10px;
@@ -12,7 +12,7 @@
 
 
 .greyButton{
-    padding: 5px 5px;
+    padding: 0px 35px;
     background-color: #DBDBDB;
     cursor: pointer;
     border-radius: 10px;

@@ -1,21 +1,9 @@
 import React, {useState} from "react";
-import {IBoard, ILoginResponse, IWorkspace} from "./data/DTO";
+import {IBoard, ILoginResponse, IUserInfo, IWorkspace} from "./data/DTO";
 
 export type UserState = [
-    {
-        token: string,
-        id: number,
-        login: string,
-        isLogged: boolean,
-        username: string,
-    },
-    React.Dispatch<React.SetStateAction<{
-        token: string,
-        id: number,
-        login: string,
-        isLogged: boolean,
-        username: string,
-    }>>
+    IUserInfo,
+    React.Dispatch<React.SetStateAction<IUserInfo>>
 ];
 
 export type WorkspaceState = [
@@ -33,4 +21,3 @@ export const UserContext = React.createContext<UserState | undefined>(undefined)
 export const WorkspaceContext = React.createContext<WorkspaceState | undefined>(undefined)
 
 export const BoardContext = React.createContext<BoardState | undefined>(undefined)
-

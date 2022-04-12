@@ -28,7 +28,6 @@ export function register(username: string, email: string, password: string) {
         .catch(function (error) {
             console.log(error)
         })
-
 }
 
 

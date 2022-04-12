@@ -5,7 +5,7 @@ import classes from "./button.module.css"
 export const CianButton: FC<JSX.IntrinsicElements['button']> = ({children, ...props}) => {
 
     return (
-        <button {...props} className={classes.customButton}>
+        <button {...props} className={classes.cianButton}>
             {children}
         </button>
     )

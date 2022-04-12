@@ -4,6 +4,7 @@ import {register} from "../../controllers/AuthController";
 import classes from "../../css/form.module.css";
 import {Button} from "react-bootstrap";
 import {CianButton} from "../UI/Button/button";
+import { Navigate } from "react-router-dom";
 
 export interface ISignUpInput {
     username: string,
@@ -24,6 +25,7 @@ const SignUpForm: FC<SignUpFormProps> = ({setH1State}) => {
         password: "",
         confirmPassword: ""
     })
+    const [registered, setRegistered] = useState(false)
 
     const validateEmail = (email : string) => {
         return String(email)
@@ -46,37 +48,46 @@ const SignUpForm: FC<SignUpFormProps> = ({setH1State}) => {
         // check data
         // TODO: exception handling
         register(input.username, input.email, input.password)
+        setRegistered(prev => true)
+    }
+
+    const redirectRegistered = () => {
+        if(registered)
+            return <Navigate to="/login"/>
     }
 
     return(
-        <form className={classes.authForm}>
-            <ul>
-                <li className={classes.inputContainer}>
-                    <h5>Username:</h5>
-                    <input type="text" placeholder="Username" required={true} maxLength={40}
-                           onChange={(e) => {
-                               input.username = e.target.value
-                               setH1State(input.username)
-                           }}/>
-                </li>
-                <li className={classes.inputContainer}>
-                    <h5>Email:</h5>
-                    <input type="text" placeholder="Email" required={true} maxLength={40}
-                           onChange={(e) => {input.email = e.target.value}}/>
-                </li>
-                <li className={classes.inputContainer}>
-                    <h5>Password:</h5>
-                    <input type="text" placeholder="Password" required={true} maxLength={50}
-                           onChange={(e) => {input.password = e.target.value}}/>
-                </li>
-                <li className={classes.inputContainer}>
-                    <h5></h5>
-                    <input type="text" placeholder="Confirm password" required={true} maxLength={50}
-                           onChange={(e) => {input.confirmPassword = e.target.value}}/>
-                </li>
-            </ul>
-            <CianButton onClick={signUp}>Sign me up!</CianButton>
-        </form>
+        <div>
+            {redirectRegistered()}
+            <form className={classes.authForm}>
+                <ul>
+                    <li className={classes.inputContainer}>
+                        <h5>Username:</h5>
+                        <input type="text" placeholder="Username" required={true} maxLength={40}
+                               onChange={(e) => {
+                                   input.username = e.target.value
+                                   setH1State(input.username)
+                               }}/>
+                    </li>
+                    <li className={classes.inputContainer}>
+                        <h5>Email:</h5>
+                        <input type="text" placeholder="Email" required={true} maxLength={40}
+                               onChange={(e) => {input.email = e.target.value}}/>
+                    </li>
+                    <li className={classes.inputContainer}>
+                        <h5>Password:</h5>
+                        <input type="text" placeholder="Password" required={true} maxLength={50}
+                               onChange={(e) => {input.password = e.target.value}}/>
+                    </li>
+                    <li className={classes.inputContainer}>
+                        <h5></h5>
+                        <input type="text" placeholder="Confirm password" required={true} maxLength={50}
+                               onChange={(e) => {input.confirmPassword = e.target.value}}/>
+                    </li>
+                </ul>
+                <CianButton onClick={signUp}>Sign me up!</CianButton>
+            </form>
+        </div>
     )
 }
 

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {IBoard, ILoginResponse, IUserInfo, IWorkspace} from "./data/DTO";
+import {IBoardInfo, ILoginResponse, IUserInfo, IWorkspace} from "./data/DTO";
 
 export type UserState = [
     IUserInfo,
@@ -12,8 +12,8 @@ export type WorkspaceState = [
 ];
 
 export type BoardState = [
-    IBoard,
-    React.Dispatch<React.SetStateAction<IBoard>>
+    IBoardInfo,
+    React.Dispatch<React.SetStateAction<IBoardInfo>>
 ];
 
 export const UserContext = React.createContext<UserState | undefined>(undefined)

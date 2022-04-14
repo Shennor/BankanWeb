@@ -1,11 +1,11 @@
 import React, {useContext, useEffect, useState} from "react";
-import {IBoard, IWorkspace} from "../data/DTO";
-import {getBoards} from "../controllers/BoardController";
+import {IBoardInfo, IWorkspace} from "../data/DTO";
 import {userInfo} from "os";
 import {UserContext} from "../context";
+import {getWorkspace} from "../controllers/WorkspaceController";
 
-export const refreshBoards = (id : number, token: string, setWorkspace:  React.Dispatch<React.SetStateAction<IWorkspace>>) => {
-    getBoards(id, token)
+export const refreshWorkspace = (id : number, token: string, setWorkspace:  React.Dispatch<React.SetStateAction<IWorkspace>>) => {
+    getWorkspace(id, token)
         .then((workspace) => {
             setWorkspace(workspace!)
         })
@@ -19,9 +19,10 @@ export const useWorkspace = () => {
 
     useEffect(() => {
         if(loaded) return
-        refreshBoards(userInfo.id, userInfo.token, setWorkspace)
+        refreshWorkspace(userInfo.id, userInfo.token, setWorkspace)
         setLoaded(true)
     })
 
 return [workspace, setWorkspace] as [IWorkspace, React.Dispatch<React.SetStateAction<IWorkspace>>]
 }
+

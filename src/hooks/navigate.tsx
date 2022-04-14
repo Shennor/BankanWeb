@@ -9,6 +9,6 @@ export const useNavigateUnauthorized = (userInfo : IUserInfo) => {
 }
 
 export const useNavigateAuthorized = (userInfo: IUserInfo) => {
-    if(userInfo.isLogged)
+    if (userInfo.isLogged)
         return <Navigate to="/home"/>
 }

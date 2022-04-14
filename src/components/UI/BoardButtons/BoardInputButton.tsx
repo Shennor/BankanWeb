@@ -1,9 +1,8 @@
 import "./board-buttons.css"
 import React, {FC, FormEvent, useContext, useState} from "react";
 import {UserContext, WorkspaceContext} from "../../../context";
-import {ILoginInput} from "../../Forms/LoginForm";
 import {createBoard} from "../../../controllers/BoardController";
-import {refreshBoards} from "../../../hooks/boards";
+import {refreshWorkspace} from "../../../hooks/workspace";
 
 interface IBoardInputButtonProps {
     setCreationState: React.Dispatch<React.SetStateAction<boolean>>
@@ -19,8 +18,9 @@ export const BoardInputButton: FC<IBoardInputButtonProps> = (props: IBoardInputB
         console.log("createBoard called")
         createBoard(input.boardName, "", workspace.id, userInfo.token)
             .catch(() => alert("Server error while trying to create board."))
-            .then(() => refreshBoards(userInfo.id, userInfo.token, setWorkspace))
+            .then(() => refreshWorkspace(userInfo.id, userInfo.token, setWorkspace))
             .catch(() => alert("Error while updating new workspace from server to client."))
+        props.setCreationState((perv) => false)
     }
 
     return (

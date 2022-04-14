@@ -1,0 +1,15 @@
+
+
+.flexContainer {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 92%;
+    padding: 1.5% 4%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.greeting {
+    font-family: Roboto-Regular;
+    font-size: 32px;
+}

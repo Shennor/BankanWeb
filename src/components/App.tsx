@@ -14,14 +14,15 @@ export default function App() {
 
     return (
         <BrowserRouter>
-            <Navbar     />
+            <Navbar/>
             <Routes>
                 <Route path="/" element={<App/>}/>
                 <Route path="/signup" element={<RegistrationPage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/home" element={<HomePage/>}/>
                 <Route path="/board/:id" element={<BoardPage/>}/>
-                <Route path="/group"/>
+                <Route path="/group" element={<h1>Group page</h1>}/>
+                <Route path="/search/:input" element={<h1>Search page</h1>}/>
             </Routes>
         </BrowserRouter>
     );

@@ -1,20 +1,21 @@
-import {FC} from "react";
-import {Link} from "react-router-dom";
-import {IBoard} from "../../../data/DTO";
+import {FC, useState} from "react";
+import {Link, Navigate} from "react-router-dom";
+import {IBoardInfo} from "../../../data/DTO";
 
 import "./board-buttons.css"
 
 interface IBoardButtonProps {
-    boardInfo: IBoard
+    boardInfo: IBoardInfo
 }
 
 export const BoardButton: FC<IBoardButtonProps> = (props) => {
+    const [clicked, setClicked] = useState(false)
+
     return (
         <div className={"boardButton"}>
-            <button>
-                <Link to={`/board/${props.boardInfo.id}`}>
-                    {props.boardInfo.name}
-                </Link>
+            {clicked && <Navigate to={`/board/${props.boardInfo.id}`}/>}
+            <button onClick={() => setClicked(prev => true)}>
+                {props.boardInfo.name}
             </button>
         </div>
     )

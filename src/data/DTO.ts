@@ -1,4 +1,5 @@
 
+
 export interface IUserInfo {
     token: string,
     id: number,
@@ -6,7 +7,6 @@ export interface IUserInfo {
     isLogged: boolean,
     username: string,
 }
-
 
 export interface ILoginResponse {
     accessToken: string,
@@ -17,7 +17,7 @@ export interface ILoginResponse {
     tokenType: string
 }
 
-export interface IBoard {
+export interface IBoardInfo {
     id: number
     name: string
     description: string
@@ -28,5 +28,20 @@ export interface IBoard {
 export interface IWorkspace {
     id: number,
     name: string,
-    listOfBoardEntities: IBoard[]
+    listOfBoardEntities: IBoardInfo[]
 }
+
+export interface IListInfo {
+}
+
+export interface IList {
+    info: IListInfo,
+    cards: []
+}
+
+export interface IBoard {
+    info: IBoardInfo,
+    lists: [number, IList][]
+}
+
+

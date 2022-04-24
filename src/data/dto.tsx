@@ -1,4 +1,4 @@
-// Card
+// CardButton
 class CardInfo {
     id: number
     name: string

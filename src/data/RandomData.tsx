@@ -7,7 +7,7 @@ import {randomInt} from "crypto";
 const randMax = 10000
 let users: number[] = []
 
-// Card
+// CardButton
 function randomCardInfo(){
     return new CardInfo(randomInt(randMax),
         "Name ${ randomInt(10000) }",

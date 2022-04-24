@@ -7,7 +7,6 @@ import "./boards-field.css"
 import {BoardInputButton} from "../BoardButtons/BoardInputButton";
 
 interface IBoardsFieldProps {
-    onCreate: () => void
 }
 
 export const BoardsField: FC<IBoardsFieldProps> = (props: IBoardsFieldProps) => {
@@ -23,9 +22,9 @@ export const BoardsField: FC<IBoardsFieldProps> = (props: IBoardsFieldProps) => 
 
     return (
         <div className={"boardField"}>
-            {boards.map(board => <BoardButton boardInfo={board}/>)}
+            {boards.map(board => <BoardButton key={board.id} boardInfo={board}/>)}
             {boardInput()}
-            <CreateBoardButton onClick={setBoardCreatingState}/>
+            <CreateBoardButton setState={setBoardCreatingState}/>
         </div>
     )
 }

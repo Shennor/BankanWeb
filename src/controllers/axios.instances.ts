@@ -3,6 +3,9 @@ import {API, AUTH, BOARD, LIST, WORKSPACE} from "../constants";
 import {useContext} from "react"
 import {UserContext} from "../context";
 
+// local storage for token
+// one instance api
+
 export const AuthInstance = axios.create({
     baseURL: `${API}${AUTH}`
 })

@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 
 export const ButtonBar = () => {
     return(
-        <div className={"buttonBar"}>
+        <div className={"buttonBarHome"}>
             <GreyButton>
                 <button>
                     Text 1
@@ -27,6 +27,20 @@ export const ButtonBar = () => {
                     Text 4
                 </button>
             </GreyButton>
+            <CianButton>
+                <button>
+                    <Link to={"/group"}>
+                        Group to list
+                    </Link>
+                </button>
+            </CianButton>
+        </div>
+    )
+}
+
+export const ButtonBarBoard = () => {
+    return(
+        <div className={"buttonBarBoard"}>
             <CianButton>
                 <button>
                     <Link to={"/group"}>

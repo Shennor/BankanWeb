@@ -20,8 +20,8 @@ export const HomePage = () => {
                     <h1 className={"greeting"}>Welcome, {userInfo.username}</h1>
                     <SearchBar/>
                 </div>
-                <ButtonBar />
-                <BoardsField onCreate={() => {}}/>
+                <ButtonBar/>
+                <BoardsField/>
             </WorkspaceContext.Provider>
         </div>
     )

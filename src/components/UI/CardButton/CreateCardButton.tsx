@@ -1,14 +1,13 @@
 import React, {FC} from "react";
-import {Link} from "react-router-dom";
+import "./card-buttons.css"
 
-interface ICreateBoardButtonProps {
+interface ICreateCardButtonProps {
     setState: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-
-export const CreateBoardButton: FC<ICreateBoardButtonProps> = (props) => {
+export const CreateCardButton: FC<ICreateCardButtonProps> = (props) => {
     return (
-        <div className={"createBoardButton"}>
+        <div className={"createCardButton"}>
             <button onClick={() => {props.setState(prev => (true))}}>
                 +
             </button>

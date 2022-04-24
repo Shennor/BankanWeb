@@ -1,0 +1,51 @@
+import React, {FC, FormEvent, useContext, useState} from "react";
+import {UserContext, WorkspaceContext} from "../../../context";
+import {createList} from "../../../controllers/ListController";
+import {IBoard} from "../../../data/DTO";
+import {refreshWorkspace} from "../../../hooks/workspace";
+
+interface IBoardInputButtonProps {
+    setCreationState: React.Dispatch<React.SetStateAction<boolean>>
+    board: IBoard
+}
+
+export const ListInputButton: FC<IBoardInputButtonProps> = (props: IBoardInputButtonProps) => {
+    const [input, setInput] = useState({name: "", description: ""})
+    const [workspace, setWorkspace] = useContext(WorkspaceContext)!
+    const [userInfo, setUserInfo] = useContext(UserContext)!
+
+    function listCreation(e: FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        console.log("createList called")
+        createList(input.name, input.description, props.board.info.id, userInfo.token)
+            .catch(() => alert("Server error while trying to create list."))
+            .then(() => refreshWorkspace(userInfo.id, userInfo.token, setWorkspace))
+            .catch(() => alert("Error while updating new workspace from server to client."))
+        props.setCreationState((prev) => false)
+    }
+
+    return (
+        <div className={"listField"} tabIndex={3}>
+            <button>
+                <form className={"listInput"} onSubmit={listCreation}>
+                    <input type="text" placeholder="Name" required={true}
+                           maxLength={40}
+                           onChange={(e) => {
+                               input.name = e.target.value
+                           }} tabIndex={1}/>
+                    <input type="text" placeholder="Description" required={true}
+                           maxLength={500}
+                           onChange={(e) => {
+                               input.description = e.target.value
+                           }} tabIndex={2}/>
+                    <button type={"submit"}>
+                        Ok
+                    </button>
+                    <button onClick={() => props.setCreationState(prev => false)}>
+                        Cancel
+                    </button>
+                </form>
+            </button>
+        </div>
+    )
+}

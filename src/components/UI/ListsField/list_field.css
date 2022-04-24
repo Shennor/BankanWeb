@@ -1,0 +1,8 @@
+
+.listsField {
+    display: flex;
+    overflow: scroll;
+    scroll-behavior: smooth;
+    justify-content: start;
+    padding-bottom: 10px;
+}

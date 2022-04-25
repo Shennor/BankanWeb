@@ -23,7 +23,7 @@ export type UpdateState = [
 
 export const UpdateContext = React.createContext<UpdateState | undefined>(undefined)
 
-export const UserContext = React.createContext<UserState | undefined>(undefined)
+// export const UserContext = React.createContext<UserState | undefined>(undefined)
 
 export const WorkspaceContext = React.createContext<WorkspaceState | undefined>(undefined)
 

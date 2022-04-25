@@ -1,10 +1,10 @@
-import React, {FC, MouseEventHandler, useContext, useState} from "react";
+import React, {FC, MouseEventHandler, useContext, useEffect, useState} from "react";
 import {login} from "../../controllers/AuthController";
-import {UserContext} from "../../context";
 
 import classes from "../../css/form.module.css"
 import { CianButton } from "../UI/Button/button";
 import Cookies from "js-cookie";
+import {useUser} from "../../hooks/user";
 
 export interface ILoginInput {
     email: string,
@@ -17,7 +17,11 @@ const LoginForm: FC = () => {
         password: ""
     })
 
-    const [userInfo, setUserInfo] = useContext(UserContext)!
+    const [userInfo, setUserInfo] = useUser()
+
+    useEffect(() => {
+        setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
+    }, []);
 
     const signIn: MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault()

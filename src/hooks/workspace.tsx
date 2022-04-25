@@ -1,8 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
-import {IBoardInfo, IWorkspace} from "../data/DTO";
-import {userInfo} from "os";
-import {UserContext} from "../context";
+import {IWorkspace} from "../data/DTO";
 import {getWorkspace} from "../controllers/WorkspaceController";
+import {useUser} from "./user";
 
 export const refreshWorkspace = (id : number, setWorkspace:  React.Dispatch<React.SetStateAction<IWorkspace>>) => {
     getWorkspace(id)
@@ -15,7 +14,11 @@ export const refreshWorkspace = (id : number, setWorkspace:  React.Dispatch<Reac
 export const useWorkspace = () => {
     const [workspace, setWorkspace] = useState<IWorkspace>({id: -1, name: "", listOfBoardEntities: []})
     const [loaded, setLoaded] = useState(false)
-    const [userInfo, other] = useContext(UserContext)!
+    const [userInfo, setUserInfo] = useUser()
+
+    useEffect(() => {
+        setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
+    }, []);
 
     useEffect(() => {
         if(loaded) return

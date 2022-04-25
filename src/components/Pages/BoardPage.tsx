@@ -3,16 +3,17 @@ import {refreshBoard, useBoard} from "../../hooks/board";
 
 import "../../css/board-page.css"
 import {ButtonBarBoard} from "../UI/ButtonBar/ButtonBar";
-import {UserContext, WorkspaceContext, UpdateContext} from "../../context";
+import {WorkspaceContext} from "../../context";
 import {ListsField} from "../UI/ListsField/ListsField";
 import {useNavigateUnauthorized} from "../../hooks/navigate";
 import {useWorkspace} from "../../hooks/workspace";
 import {useContext} from "react";
+import {useUser} from "../../hooks/user";
 
 export const BoardPage = (props: any) => {
     const id = useParams().id
     const [board, setBoard] = useBoard(id as unknown as number)
-    const [userInfo, setUserInfo] = useContext(UserContext)!
+    const [userInfo, setUserInfo] = useUser()
     const [workspace, setWorkspace] = useWorkspace()
 
     let element = (board.info.id != -1)? <>

@@ -1,12 +1,10 @@
-import React, {FC, useContext} from "react";
+import React, {FC, useContext, useEffect} from "react";
 
 import classes from "../../css/login-page.module.css"
 import LoginForm from "../Forms/LoginForm";
 import {BigLogo} from "../../images/images";
 import {Navigate} from "react-router-dom";
-import {UserContext} from "../../context";
-import {IUserInfo} from "../../data/DTO";
-import {useNavigateAuthorized} from "../../hooks/navigate";
+import {useUser} from "../../hooks/user";
 
 
 // {setUserInfo({
@@ -18,12 +16,15 @@ import {useNavigateAuthorized} from "../../hooks/navigate";
 // })}
 
 export const LoginPage : FC = () => {
-    const [userInfo, setUserInfo] = useContext(UserContext)!
+    const [userInfo, setUserInfo] = useUser()
 
+    useEffect(() => {
+        setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
+    }, []);
 
     return(
         <div className={classes.loginContent}>
-            {useNavigateAuthorized(userInfo)}
+            {(userInfo.isLogged) ? <Navigate to={"/home"}/> : <></>}
             <div className={classes.loginContainer}>
                 <div className={classes.mainLogo}>
                     <img className="logo" src={BigLogo} alt="Logo"/>

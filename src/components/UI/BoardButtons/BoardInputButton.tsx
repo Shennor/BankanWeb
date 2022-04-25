@@ -1,8 +1,9 @@
 import "./board-buttons.css"
-import React, {FC, FormEvent, useContext, useState} from "react";
-import {UserContext, WorkspaceContext} from "../../../context";
+import React, {FC, FormEvent, useContext, useEffect, useState} from "react";
+import {WorkspaceContext} from "../../../context";
 import {createBoard} from "../../../controllers/BoardController";
 import {refreshWorkspace} from "../../../hooks/workspace";
+import {useUser} from "../../../hooks/user";
 
 interface IBoardInputButtonProps {
     setCreationState: React.Dispatch<React.SetStateAction<boolean>>
@@ -10,7 +11,12 @@ interface IBoardInputButtonProps {
 
 export const BoardInputButton: FC<IBoardInputButtonProps> = (props: IBoardInputButtonProps) => {
     const [input, setInput] = useState({boardName: ""})
-    const [userInfo, setUserInfo] = useContext(UserContext)!
+    const [userInfo, setUserInfo] = useUser()
+
+    useEffect(() => {
+        setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
+    }, []);
+
     const [workspace, setWorkspace] = useContext(WorkspaceContext)!
 
     function boardCreation(e: FormEvent<HTMLFormElement>) {

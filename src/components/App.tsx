@@ -1,17 +1,13 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import { Routes, Route, BrowserRouter } from "react-router-dom"
 import RegistrationPage from "./Pages/RegistrationPage";
 import {LoginPage} from "./Pages/LoginPage";
 import {HomePage} from "./Pages/HomePage";
 import Navbar from "./UI/NavBar/navbar";
-import {UserContext} from "../context";
 import {BoardPage} from "./Pages/BoardPage";
 
-// context API instead of redux
 
 export default function App() {
-    const [userInfo, setUserInfo] = useContext(UserContext)!
-
     return (
         <BrowserRouter>
             <Navbar/>

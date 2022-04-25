@@ -16,6 +16,13 @@ export type BoardState = [
     React.Dispatch<React.SetStateAction<IBoardInfo>>
 ];
 
+export type UpdateState = [
+    boolean,
+    React.Dispatch<React.SetStateAction<boolean>>
+];
+
+export const UpdateContext = React.createContext<UpdateState | undefined>(undefined)
+
 export const UserContext = React.createContext<UserState | undefined>(undefined)
 
 export const WorkspaceContext = React.createContext<WorkspaceState | undefined>(undefined)

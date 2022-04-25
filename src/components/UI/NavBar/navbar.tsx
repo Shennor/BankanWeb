@@ -1,14 +1,19 @@
-import React, {MouseEventHandler, useContext} from 'react';
+import React, {FC, MouseEventHandler, useContext, useEffect, useState} from 'react';
 import {UserContext} from "../../../context";
 import {HomeIconWhite, Logo} from "../../../images/images";
 import {Link} from "react-router-dom";
 import {FaBars} from "react-icons/fa";
 
 import classes from './navbar.module.css'
+import {IUserInfo} from "../../../data/DTO";
 
-const UserMenuOptional = () => {
+interface UserMenuOptionalProps {
+    isLogged: boolean
+}
+
+const UserMenuOptional: FC<UserMenuOptionalProps> = (props: UserMenuOptionalProps) => {
     const [userInfo, setUserInfo] = useContext(UserContext)!
-    if (userInfo.isLogged) return (
+    if (props.isLogged) return (
         <ul className={classes.flexMenuList}>
             <li>
                 <Link to='/home'>
@@ -27,10 +32,14 @@ const UserMenuOptional = () => {
     return (<ul/>)
 }
 
-const NavButtonsOptional = (logout : any) => {
-    const [userInfo, setUserInfo] = useContext(UserContext)!
+interface NavButtonsOptionalProps {
+    logout: MouseEventHandler<HTMLButtonElement>
+    isLogged: boolean
+}
 
-    if (!userInfo.isLogged) return (
+const NavButtonsOptional: FC<NavButtonsOptionalProps> = (props: NavButtonsOptionalProps) => {
+
+    if (!props.isLogged) return (
         <ul className={classes.flexButtonList}>
             <li>
                 <button className={classes.navigationBtn}>
@@ -46,7 +55,7 @@ const NavButtonsOptional = (logout : any) => {
         <ul>
             <li>
                 <button className={classes.navigationBtn}
-                        onClick={logout}>
+                        onClick={props.logout}>
                     <Link to='/login'>Exit</Link>
                 </button>
             </li>
@@ -54,20 +63,27 @@ const NavButtonsOptional = (logout : any) => {
     )
 }
 
+function useForceUpdate(){
+    const [value, setValue] = useState(0); // integer state
+    return () => setValue(value => value + 1); // update the state to force render
+}
 
 const Navbar = () => {
     const [userInfo, setUserInfo] = useContext(UserContext)!
 
+    const forceUpdate = useForceUpdate();
+
     const logout: MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault()
+        localStorage.removeItem("token")
         setUserInfo(it => {
             it.username = ""
             it.login = ""
             it.id = -1
             it.isLogged = false
-            it.token = ""
             return it
         })
+        forceUpdate()
     }
 
     return (
@@ -81,10 +97,46 @@ const Navbar = () => {
                             </Link>
                         </div>
                         <div className={classes.navigation}>
-                            {UserMenuOptional()}
+                            {(userInfo.isLogged) ?
+                                <ul className={classes.flexMenuList}>
+                                    <li>
+                                        <Link to='/home'>
+                                            Home
+                                            {/*<img className="icon" src={HomeIconWhite} alt={"Home"}/>*/}
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to='/profile'>
+                                            Profile
+                                            <img className={classes.profileImg}/>
+                                            {userInfo.username}
+                                        </Link>
+                                    </li>
+                                </ul>
+                                : <ul/>}
                         </div>
                         <div className="header-login">
-                            {NavButtonsOptional(logout)}
+                            {(!userInfo.isLogged) ?
+                                <ul className={classes.flexButtonList}>
+                                    <li>
+                                        <button className={classes.navigationBtn}>
+                                            <Link to='/login'>Login</Link>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <Link to='/signup'>Sign Up</Link>
+                                    </li>
+                                </ul>
+                                :
+                                <ul>
+                                    <li>
+                                        <button className={classes.navigationBtn}
+                                                onClick={logout}>
+                                            <Link to='/login'>Exit</Link>
+                                        </button>
+                                    </li>
+                                </ul>
+                            }
                         </div>
                     </div>
                 </div>

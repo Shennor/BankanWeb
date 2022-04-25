@@ -1,15 +1,17 @@
 import React, {FC, FormEvent, useContext, useState} from "react";
-import {UserContext, WorkspaceContext} from "../../../context";
+import {UpdateContext, UserContext, WorkspaceContext} from "../../../context";
 import {createList} from "../../../controllers/ListController";
-import {IBoard} from "../../../data/DTO";
+import {IBoard, IBoardInfo, IList} from "../../../data/DTO";
 import {refreshWorkspace} from "../../../hooks/workspace";
+import {refreshBoard} from "../../../hooks/board";
 
-interface IBoardInputButtonProps {
+interface IListInputButtonProps {
     setCreationState: React.Dispatch<React.SetStateAction<boolean>>
     board: IBoard
+    setBoard: React.Dispatch<React.SetStateAction<IBoard>>
 }
 
-export const ListInputButton: FC<IBoardInputButtonProps> = (props: IBoardInputButtonProps) => {
+export const ListInputButton: FC<IListInputButtonProps> = (props: IListInputButtonProps) => {
     const [input, setInput] = useState({name: "", description: ""})
     const [workspace, setWorkspace] = useContext(WorkspaceContext)!
     const [userInfo, setUserInfo] = useContext(UserContext)!
@@ -17,9 +19,9 @@ export const ListInputButton: FC<IBoardInputButtonProps> = (props: IBoardInputBu
     function listCreation(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
         console.log("createList called")
-        createList(input.name, input.description, props.board.info.id, userInfo.token)
+        createList(input.name, input.description, props.board.info.id)
             .catch(() => alert("Server error while trying to create list."))
-            .then(() => refreshWorkspace(userInfo.id, userInfo.token, setWorkspace))
+            .then(() => refreshBoard(userInfo.id, props.setBoard))
             .catch(() => alert("Error while updating new workspace from server to client."))
         props.setCreationState((prev) => false)
     }

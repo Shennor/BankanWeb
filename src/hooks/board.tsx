@@ -2,9 +2,10 @@ import React, {useContext, useEffect, useState} from "react";
 import {IBoard, IBoardInfo, IList} from "../data/DTO";
 import {UserContext} from "../context";
 import {getBoard, getBoardRecursive} from "../controllers/BoardController";
+import {refreshWorkspace} from "./workspace";
 
-export async function refreshBoard(id: number, token: string, setBoard: React.Dispatch<React.SetStateAction<IBoard>>) {
-    const board = await getBoardRecursive(id, token)
+export async function refreshBoard(id: number, setBoard: React.Dispatch<React.SetStateAction<IBoard>>) {
+    const board = await getBoardRecursive(id)
     setBoard(prev => board)
 }
 
@@ -18,20 +19,16 @@ export const useBoard = (id: number) => {
             creationData: BigInt(0)
         }, lists: []
     })
+    const [loaded, setLoaded] = useState(false)
+    const [userInfo, other] = useContext(UserContext)!
 
-    const [userInfo, ...other] = useContext(UserContext)!
-
-    // useEffect(() => {
-    //     refreshBoard(id, userInfo.token, setBoard).catch(() => {
-    //         setLoaded(false)
-    //         alert("Cannot load board from server")
-    //     })
-    //         .then(() => {
-    //             console.log("Board loaded")
-    //             console.log(board);
-    //             setLoaded(true)
-    //         })
-    // }, [board])
+    useEffect(() => {
+        if(loaded) return
+        refreshBoard(userInfo.id, setBoard)
+            .catch((e) => console.error("Error while loading board: " + e))
+            .then()
+        setLoaded(true)
+    })
 
 return [board, setBoard] as [IBoard, React.Dispatch<React.SetStateAction<IBoard>>]
 }

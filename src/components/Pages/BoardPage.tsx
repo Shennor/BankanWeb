@@ -4,9 +4,7 @@ import {useContext, useEffect, useState} from "react";
 
 import "../../css/board-page.css"
 import {ButtonBarBoard} from "../UI/ButtonBar/ButtonBar";
-import {userInfo} from "os";
-import {UserContext, WorkspaceContext} from "../../context";
-import {List} from "../UI/List/List";
+import {UserContext, WorkspaceContext, UpdateContext} from "../../context";
 import {ListsField} from "../UI/ListsField/ListsField";
 import {useNavigateUnauthorized} from "../../hooks/navigate";
 import {useWorkspace} from "../../hooks/workspace";
@@ -47,17 +45,9 @@ export const BoardPage = (props: any) => {
             </div>
         </div>
         <ButtonBarBoard/>
-        <ListsField board={board}/>
+        <ListsField board={board} setBoard={setBoard}/>
     </>
         : <p>Loading...</p>
-
-    useEffect(() => {
-            refreshBoard(id as unknown as number, userInfo.token, setBoard).then(() => {
-                console.log("board refreshed")
-                console.log(board)
-            })
-                .catch(error => console.error(error))
-    }, [board])
 
     return (
         <div>

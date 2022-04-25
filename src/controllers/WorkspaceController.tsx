@@ -2,9 +2,7 @@ import {WorkspaceInstance} from "./axios.instances";
 import {IWorkspace} from "../data/DTO";
 
 
-export const getWorkspace = (userId: number, token: string) => {
-    WorkspaceInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`
-    WorkspaceInstance.defaults.headers.common["Access-Control-Allow-Origin"] = "*"
+export const getWorkspace = (userId: number) => {
     return WorkspaceInstance.get(`user/${userId}`)
         .then((response) => response.data as IWorkspace)
         .catch((error) => {

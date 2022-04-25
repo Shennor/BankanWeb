@@ -27,9 +27,9 @@ const LoginForm: FC = () => {
                     username: loginResponse!.username,
                     login: loginResponse!.login,
                     id: loginResponse!.id,
-                    isLogged: true,
-                    token: loginResponse!.accessToken
+                    isLogged: true
                 })
+                localStorage.setItem("token", loginResponse!.accessToken)
             })
     }
 

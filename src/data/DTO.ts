@@ -1,7 +1,6 @@
 
 
 export interface IUserInfo {
-    token: string,
     id: number,
     login: string,
     isLogged: boolean,

@@ -30,10 +30,8 @@ interface IListResponse {
 }
 
 
-export const createBoard = async (name: string, description: string, workspaceId: number, token: string) => {
+export const createBoard = async (name: string, description: string, workspaceId: number) => {
     try {
-        BoardInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`
-        BoardInstance.defaults.headers.common["Access-Control-Allow-Origin"] = "*"
         const response = await BoardInstance.post(`${workspaceId}`, {
             name: name,
             description: description
@@ -46,10 +44,8 @@ export const createBoard = async (name: string, description: string, workspaceId
 }
 // Promise.all()
 
-export const getBoardInfo = async (boardId: number, token: string) => {
+export const getBoardInfo = async (boardId: number) => {
     try {
-        BoardInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`
-        BoardInstance.defaults.headers.common["Access-Control-Allow-Origin"] = "*"
         const response = await BoardInstance.get(`info/${boardId}`)
         return response.data as IBoardInfoResponse
     } catch (error) {
@@ -58,10 +54,8 @@ export const getBoardInfo = async (boardId: number, token: string) => {
     }
 }
 
-export const getBoard = async (boardId: number, token: string) => {
+export const getBoard = async (boardId: number) => {
     try {
-        BoardInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`
-        BoardInstance.defaults.headers.common["Access-Control-Allow-Origin"] = "*"
         const lists = await BoardInstance.get(`${boardId}`)
         return lists.data as IListInfoResponse[]
     } catch (error) {
@@ -70,17 +64,15 @@ export const getBoard = async (boardId: number, token: string) => {
     }
 }
 
-const getLists = async (lists: IList[], token: string) => {
+const getLists = async (lists: IList[]) => {
     const responses = [];
-    ListInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`
-    ListInstance.defaults.headers.common["Access-Control-Allow-Origin"] = "*"
     for (let i = 0; i < lists.length; i++) {
         responses.push(ListInstance.get(`${lists[i].info.id}`));
     }
     return await Promise.all(responses) as IListResponse[]
 }
 
-export const getBoardRecursive = async (boardId: number, token: string) => {
+export const getBoardRecursive = async (boardId: number) => {
     let board: IBoard = {
         info: {
             id: -1,
@@ -91,13 +83,13 @@ export const getBoardRecursive = async (boardId: number, token: string) => {
         },
         lists: [] as IList[]
     }
-    const boardInfoResponse = await getBoardInfo(boardId, token)
+    const boardInfoResponse = await getBoardInfo(boardId)
     board.info.id = boardId
     board.info.description = boardInfoResponse!.description
     board.info.name = boardInfoResponse!.name
     board.info.isOpen = boardInfoResponse!.isOpen
     board.info.creationData = boardInfoResponse!.creationDate
-    const data = await getBoard(boardId, token)
+    const data = await getBoard(boardId)
     for (var i = 0; i < data!.length; ++i) {
         board.lists.push({
             cards: [],
@@ -108,7 +100,7 @@ export const getBoardRecursive = async (boardId: number, token: string) => {
             }
         })
     }
-    const lists = await getLists(board.lists, token)
+    const lists = await getLists(board.lists)
     lists.forEach((value, index) => {
         board.lists[index].cards = value.data.data
     })

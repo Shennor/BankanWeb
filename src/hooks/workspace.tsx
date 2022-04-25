@@ -4,8 +4,8 @@ import {userInfo} from "os";
 import {UserContext} from "../context";
 import {getWorkspace} from "../controllers/WorkspaceController";
 
-export const refreshWorkspace = (id : number, token: string, setWorkspace:  React.Dispatch<React.SetStateAction<IWorkspace>>) => {
-    getWorkspace(id, token)
+export const refreshWorkspace = (id : number, setWorkspace:  React.Dispatch<React.SetStateAction<IWorkspace>>) => {
+    getWorkspace(id)
         .then((workspace) => {
             setWorkspace(workspace!)
         })
@@ -19,7 +19,7 @@ export const useWorkspace = () => {
 
     useEffect(() => {
         if(loaded) return
-        refreshWorkspace(userInfo.id, userInfo.token, setWorkspace)
+        refreshWorkspace(userInfo.id, setWorkspace)
         setLoaded(true)
     })
 

@@ -16,9 +16,9 @@ export const BoardInputButton: FC<IBoardInputButtonProps> = (props: IBoardInputB
     function boardCreation(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
         console.log("createBoard called")
-        createBoard(input.boardName, "", workspace.id, userInfo.token)
+        createBoard(input.boardName, "", workspace.id)
             .catch(() => alert("Server error while trying to create board."))
-            .then(() => refreshWorkspace(userInfo.id, userInfo.token, setWorkspace))
+            .then(() => refreshWorkspace(userInfo.id, setWorkspace))
             .catch(() => alert("Error while updating new workspace from server to client."))
         props.setCreationState((perv) => false)
     }

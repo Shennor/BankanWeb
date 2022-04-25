@@ -1,4 +1,4 @@
-import {FC, useState} from "react";
+import React, {FC, useState} from "react";
 import {List} from "../List/List";
 import {CreateListButton} from "../List/CreateListButton";
 import {IBoard} from "../../../data/DTO";
@@ -8,6 +8,7 @@ import "./list_field.css"
 
 interface IListsFieldProps {
     board: IBoard
+    setBoard: React.Dispatch<React.SetStateAction<IBoard>>
 }
 
 export const ListsField: FC<IListsFieldProps> = (props: IListsFieldProps) => {
@@ -15,7 +16,7 @@ export const ListsField: FC<IListsFieldProps> = (props: IListsFieldProps) => {
 
     const listInput = () => {
         if (listCreatingState)
-            return <ListInputButton setCreationState={setListCreatingState} board={props.board}/>
+            return <ListInputButton setCreationState={setListCreatingState} board={props.board} setBoard={props.setBoard}/>
         return <></>
     }
 

@@ -14,7 +14,6 @@ function Main() {
         login: "",
         id: -1,
         isLogged: false,
-        token: ""
     })
 
 

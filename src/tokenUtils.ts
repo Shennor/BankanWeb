@@ -1,4 +1,4 @@
-import {TOKEN_COOKIE} from "./constants";
+import {TOKEN_COOKIE} from "./constants_utils";
 
 
 export function getToken(): String {

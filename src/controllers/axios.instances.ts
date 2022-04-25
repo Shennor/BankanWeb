@@ -1,9 +1,9 @@
 import axios from 'axios'
-import {API, AUTH, BOARD, LIST, WORKSPACE} from "../constants";
-import {useContext} from "react"
-import {UserContext} from "../context";
+import {API, AUTH, BOARD, LIST, WORKSPACE} from "../constants_utils";
+import Cookies from 'js-cookie'
 
-axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+// axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
+axios.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get("token")}`
 axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*"
 
 export const AuthInstance = axios.create({

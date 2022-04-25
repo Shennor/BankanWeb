@@ -7,3 +7,5 @@ export const AUTH = "auth/"
 export const ACCESS_CONTROL_ALLOW_ORIGIN = "http://localhost:8080"
 
 export const TOKEN_COOKIE = "token"
+
+export const HOURS_TO_EXPIRE = 8;

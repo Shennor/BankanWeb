@@ -6,6 +6,7 @@ import {FaBars} from "react-icons/fa";
 
 import classes from './navbar.module.css'
 import {IUserInfo} from "../../../data/DTO";
+import Cookies from "js-cookie";
 
 interface UserMenuOptionalProps {
     isLogged: boolean
@@ -75,7 +76,8 @@ const Navbar = () => {
 
     const logout: MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault()
-        localStorage.removeItem("token")
+        Cookies.remove("token")
+        // localStorage.removeItem("token")
         setUserInfo(it => {
             it.username = ""
             it.login = ""

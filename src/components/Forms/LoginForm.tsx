@@ -4,6 +4,7 @@ import {UserContext} from "../../context";
 
 import classes from "../../css/form.module.css"
 import { CianButton } from "../UI/Button/button";
+import Cookies from "js-cookie";
 
 export interface ILoginInput {
     email: string,
@@ -29,7 +30,8 @@ const LoginForm: FC = () => {
                     id: loginResponse!.id,
                     isLogged: true
                 })
-                localStorage.setItem("token", loginResponse!.accessToken)
+                Cookies.set("token", loginResponse!.accessToken)
+                // localStorage.setItem("token", loginResponse!.accessToken)
             })
     }
 

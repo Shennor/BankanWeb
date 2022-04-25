@@ -4,6 +4,9 @@ import {WorkspaceContext} from "../../../context";
 import {createBoard} from "../../../controllers/BoardController";
 import {refreshWorkspace} from "../../../hooks/workspace";
 import {store} from "../../../redux/store";
+import {useDispatch, useSelector} from "react-redux";
+import {IUserInfo} from "../../../data/DTO";
+import {useAppSelector} from "../../../hooks/redux";
 
 interface IBoardInputButtonProps {
     setCreationState: React.Dispatch<React.SetStateAction<boolean>>
@@ -11,11 +14,7 @@ interface IBoardInputButtonProps {
 
 export const BoardInputButton: FC<IBoardInputButtonProps> = (props: IBoardInputButtonProps) => {
     const [input, setInput] = useState({boardName: ""})
-
-    let userInfo = store.getState()
-    const unsubscribe = store.subscribe(() => {
-        userInfo = store.getState()
-    })
+    const userInfo = useAppSelector((state) => state as IUserInfo)
 
     const [workspace, setWorkspace] = useContext(WorkspaceContext)!
 

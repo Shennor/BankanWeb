@@ -7,19 +7,20 @@ import {useNavigateUnauthorized} from "../../hooks/navigate";
 import {SearchBar} from "../UI/SearchBar/SearchBar";
 import "../../css/home-page.css"
 import {store} from "../../redux/store";
+import {useSelector} from "react-redux";
+import {IUserInfo} from "../../data/DTO";
 
 
 export const HomePage = () => {
     const [workspace, setWorkspace] = useWorkspace()
 
-    const [userInfo, setUserInfo] = useState(store.getState())
-    const unsubscribe = store.subscribe(() => {
-        setUserInfo(store.getState())
-    })
+    const userInfo = useSelector((state) => state as IUserInfo)
 
     return (
         <div>
             {useNavigateUnauthorized(userInfo)}
+            {console.log(userInfo)}
+            {console.log(store)}
             <WorkspaceContext.Provider value={[workspace, setWorkspace]}>
                 {(workspace.id != -1) ?
                     <>

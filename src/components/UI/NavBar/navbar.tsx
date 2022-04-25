@@ -5,7 +5,8 @@ import {Link} from "react-router-dom";
 import classes from './navbar.module.css'
 import Cookies from "js-cookie";
 import {store, UNSET_USER} from "../../../redux/store";
-// import {useUser} from "../../../hooks/user";
+import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
+import {StateLoader} from "../../../redux/state_loader";
 
 
 function useForceUpdate() {
@@ -13,17 +14,18 @@ function useForceUpdate() {
     return () => setValue(value => value + 1); // update the state to force render
 }
 
+export type RootState = ReturnType<typeof store.getState>
+
 const Navbar = () => {
-    let userInfo = store.getState()
-    const unsubscribe = store.subscribe(() => {
-        userInfo = store.getState()
-    })
+    const userInfo = (new StateLoader()).initializeState()
+    useAppSelector((state : RootState) => {console.log(state)})
+    const dispatch = useAppDispatch()
 
     const logout: MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault()
-        Cookies.remove("token")
+        // Cookies.remove("token")
         // localStorage.removeItem("token")
-        store.dispatch({ type: UNSET_USER })
+        dispatch({ type: UNSET_USER })
     }
 
     return (
@@ -37,7 +39,7 @@ const Navbar = () => {
                             </Link>
                         </div>
                         <div className={classes.navigation}>
-                            {(Cookies.get("token") != undefined) ?
+                            {(userInfo.isLogged) ?
                                 <ul className={classes.flexMenuList}>
                                     <li>
                                         <Link to='/home'>
@@ -56,7 +58,7 @@ const Navbar = () => {
                                 : <ul/>}
                         </div>
                         <div className="header-login">
-                            {(Cookies.get("token") === undefined) ?
+                            {(!userInfo.isLogged) ?
                                 <ul className={classes.flexButtonList}>
                                     <li>
                                         <button className={classes.navigationBtn}>

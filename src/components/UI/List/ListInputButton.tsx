@@ -1,10 +1,11 @@
 import React, {FC, FormEvent, useContext, useEffect, useState} from "react";
 import {WorkspaceContext} from "../../../context";
 import {createList} from "../../../controllers/ListController";
-import {IBoard, IBoardInfo, IList} from "../../../data/DTO";
+import {IBoard, IBoardInfo, IList, IUserInfo} from "../../../data/DTO";
 import {refreshWorkspace} from "../../../hooks/workspace";
 import {refreshBoard} from "../../../hooks/board";
 import {store} from "../../../redux/store";
+import {useDispatch, useSelector} from "react-redux";
 
 interface IListInputButtonProps {
     setCreationState: React.Dispatch<React.SetStateAction<boolean>>
@@ -15,10 +16,8 @@ interface IListInputButtonProps {
 export const ListInputButton: FC<IListInputButtonProps> = (props: IListInputButtonProps) => {
     const [input, setInput] = useState({name: "", description: ""})
     const [workspace, setWorkspace] = useContext(WorkspaceContext)!
-    const [userInfo, setUserInfo] = useState(store.getState())
-    const unsubscribe = store.subscribe(() => {
-        setUserInfo(store.getState())
-    })
+    const userInfo = useSelector((state) => state as IUserInfo)
+
 
     function listCreation(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()

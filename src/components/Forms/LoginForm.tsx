@@ -5,7 +5,9 @@ import classes from "../../css/form.module.css"
 import {CianButton} from "../UI/Button/button";
 import Cookies from "js-cookie";
 import {SET_USER, store} from "../../redux/store";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {IUserInfo} from "../../data/DTO";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 
 export interface ILoginInput {
     email: string,
@@ -18,8 +20,8 @@ const LoginForm: FC = () => {
         password: ""
     })
 
-    const [userInfo, setUserInfo] = useState(store.getState())
-
+    const userInfo = useAppSelector((state) => state as IUserInfo)
+    const dispatch = useAppDispatch()
 
     // const [userInfo, setUserInfo] = useUser()
     //
@@ -33,7 +35,8 @@ const LoginForm: FC = () => {
         login(input.email, input.password)
             .catch(() => alert("Server error while trying to sign in."))
             .then(loginResponse => {
-                store.dispatch({
+                console.log(loginResponse)
+                dispatch({
                     type: SET_USER, new_user: {
                         username: loginResponse!.username,
                         login: loginResponse!.login,

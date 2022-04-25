@@ -8,6 +8,7 @@ import {Navigate} from "react-router-dom";
 import {setUser, store} from "../../redux/store";
 import {useNavigateAuthorized} from "../../hooks/navigate";
 import {IUserInfo} from "../../data/DTO";
+import {useSelector} from "react-redux";
 
 
 // {setUserInfo({
@@ -19,10 +20,8 @@ import {IUserInfo} from "../../data/DTO";
 // })}
 
 export const LoginPage : FC = () => {
-    const [userInfo, setUserInfo] = useState(store.getState())
-    const unsubscribe = store.subscribe(() => {
-        setUserInfo(store.getState())
-    })
+    const userInfo = useSelector((state) => state as IUserInfo)
+
 
     // const [userInfo, setUserInfo] = useUser()
     //

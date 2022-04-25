@@ -2,6 +2,8 @@ import React, {FC, FormEvent, useContext, useEffect, useState} from "react";
 import {WorkspaceContext} from "../../../context";
 import "./card-buttons.css"
 import {store} from "../../../redux/store";
+import {useDispatch, useSelector} from "react-redux";
+import {IUserInfo} from "../../../data/DTO";
 
 interface ICardInputButtonProps {
     setCreationState: React.Dispatch<React.SetStateAction<boolean>>
@@ -9,17 +11,9 @@ interface ICardInputButtonProps {
 
 export const CardInputButton: FC<ICardInputButtonProps> = (props: ICardInputButtonProps) => {
     const [input, setInput] = useState({boardName: ""})
-
-    const [userInfo, setUserInfo] = useState(store.getState())
-    const unsubscribe = store.subscribe(() => {
-        setUserInfo(store.getState())
-    })
+    const userInfo = useSelector((state) => state as IUserInfo)
 
     const [workspace, setWorkspace] = useContext(WorkspaceContext)!
-
-    useEffect(() => {
-        setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
-    }, []);
 
     function cardCreation(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()

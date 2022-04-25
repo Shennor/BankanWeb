@@ -4,7 +4,8 @@ import {Link} from "react-router-dom";
 
 import classes from './navbar.module.css'
 import Cookies from "js-cookie";
-import {useUser} from "../../../hooks/user";
+import {store, UNSET_USER} from "../../../redux/store";
+// import {useUser} from "../../../hooks/user";
 
 
 function useForceUpdate() {
@@ -13,25 +14,16 @@ function useForceUpdate() {
 }
 
 const Navbar = () => {
-    const [userInfo, setUserInfo] = useUser()
-
-    useEffect(() => {
-        setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
-    }, []);
-
-    const forceUpdate = useForceUpdate();
+    let userInfo = store.getState()
+    const unsubscribe = store.subscribe(() => {
+        userInfo = store.getState()
+    })
 
     const logout: MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault()
         Cookies.remove("token")
         // localStorage.removeItem("token")
-        setUserInfo({
-            username: "",
-            login: "",
-            id: -1,
-            isLogged: false
-        })
-        forceUpdate()
+        store.dispatch({ type: UNSET_USER })
     }
 
     return (

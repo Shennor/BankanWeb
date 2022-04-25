@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {IWorkspace} from "../data/DTO";
 import {getWorkspace} from "../controllers/WorkspaceController";
-import {useUser} from "./user";
+import {store} from "../redux/store";
 
 export const refreshWorkspace = (id : number, setWorkspace:  React.Dispatch<React.SetStateAction<IWorkspace>>) => {
     getWorkspace(id)
@@ -14,8 +14,10 @@ export const refreshWorkspace = (id : number, setWorkspace:  React.Dispatch<Reac
 export const useWorkspace = () => {
     const [workspace, setWorkspace] = useState<IWorkspace>({id: -1, name: "", listOfBoardEntities: []})
     const [loaded, setLoaded] = useState(false)
-    const [userInfo, setUserInfo] = useUser()
-
+    const [userInfo, setUserInfo] = useState(store.getState())
+    const unsubscribe = store.subscribe(() => {
+        setUserInfo(store.getState())
+    })
     useEffect(() => {
         setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
     }, []);

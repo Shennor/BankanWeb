@@ -4,7 +4,7 @@ import {createList} from "../../../controllers/ListController";
 import {IBoard, IBoardInfo, IList} from "../../../data/DTO";
 import {refreshWorkspace} from "../../../hooks/workspace";
 import {refreshBoard} from "../../../hooks/board";
-import {useUser} from "../../../hooks/user";
+import {store} from "../../../redux/store";
 
 interface IListInputButtonProps {
     setCreationState: React.Dispatch<React.SetStateAction<boolean>>
@@ -15,11 +15,10 @@ interface IListInputButtonProps {
 export const ListInputButton: FC<IListInputButtonProps> = (props: IListInputButtonProps) => {
     const [input, setInput] = useState({name: "", description: ""})
     const [workspace, setWorkspace] = useContext(WorkspaceContext)!
-    const [userInfo, setUserInfo] = useUser()
-
-    useEffect(() => {
-        setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
-    }, []);
+    const [userInfo, setUserInfo] = useState(store.getState())
+    const unsubscribe = store.subscribe(() => {
+        setUserInfo(store.getState())
+    })
 
     function listCreation(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()

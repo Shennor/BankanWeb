@@ -1,7 +1,7 @@
 import React, {FC, FormEvent, useContext, useEffect, useState} from "react";
 import {WorkspaceContext} from "../../../context";
 import "./card-buttons.css"
-import {useUser} from "../../../hooks/user";
+import {store} from "../../../redux/store";
 
 interface ICardInputButtonProps {
     setCreationState: React.Dispatch<React.SetStateAction<boolean>>
@@ -9,7 +9,12 @@ interface ICardInputButtonProps {
 
 export const CardInputButton: FC<ICardInputButtonProps> = (props: ICardInputButtonProps) => {
     const [input, setInput] = useState({boardName: ""})
-    const [userInfo, setUserInfo] = useUser()
+
+    const [userInfo, setUserInfo] = useState(store.getState())
+    const unsubscribe = store.subscribe(() => {
+        setUserInfo(store.getState())
+    })
+
     const [workspace, setWorkspace] = useContext(WorkspaceContext)!
 
     useEffect(() => {

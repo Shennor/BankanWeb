@@ -6,12 +6,16 @@ import {ButtonBar} from "../UI/ButtonBar/ButtonBar";
 import {useNavigateUnauthorized} from "../../hooks/navigate";
 import {SearchBar} from "../UI/SearchBar/SearchBar";
 import "../../css/home-page.css"
-import {useUser} from "../../hooks/user";
+import {store} from "../../redux/store";
 
 
 export const HomePage = () => {
-    const [userInfo, setUserInfo] = useUser()
     const [workspace, setWorkspace] = useWorkspace()
+
+    const [userInfo, setUserInfo] = useState(store.getState())
+    const unsubscribe = store.subscribe(() => {
+        setUserInfo(store.getState())
+    })
 
     return (
         <div>

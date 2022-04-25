@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {IBoard} from "../data/DTO";
 import {getBoardRecursive} from "../controllers/BoardController";
-import {useUser} from "./user";
+import {store} from "../redux/store";
 
 export async function refreshBoard(id: number, setBoard: React.Dispatch<React.SetStateAction<IBoard>>) {
     const board = await getBoardRecursive(id)
@@ -19,7 +19,11 @@ export const useBoard = (id: number) => {
         }, lists: []
     })
     const [loaded, setLoaded] = useState(false)
-    const [userInfo, setUserInfo] = useUser()
+
+    const [userInfo, setUserInfo] = useState(store.getState())
+    const unsubscribe = store.subscribe(() => {
+        setUserInfo(store.getState())
+    })
 
     useEffect(() => {
         setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));

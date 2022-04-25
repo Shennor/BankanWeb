@@ -1,10 +1,13 @@
-import React, {FC, useContext, useEffect} from "react";
+import React, {FC, useEffect, useState} from "react";
 
 import classes from "../../css/login-page.module.css"
 import LoginForm from "../Forms/LoginForm";
 import {BigLogo} from "../../images/images";
 import {Navigate} from "react-router-dom";
-import {useUser} from "../../hooks/user";
+// import {useUser} from "../../hooks/user";
+import {setUser, store} from "../../redux/store";
+import {useNavigateAuthorized} from "../../hooks/navigate";
+import {IUserInfo} from "../../data/DTO";
 
 
 // {setUserInfo({
@@ -16,15 +19,20 @@ import {useUser} from "../../hooks/user";
 // })}
 
 export const LoginPage : FC = () => {
-    const [userInfo, setUserInfo] = useUser()
+    const [userInfo, setUserInfo] = useState(store.getState())
+    const unsubscribe = store.subscribe(() => {
+        setUserInfo(store.getState())
+    })
 
-    useEffect(() => {
-        setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
-    }, []);
+    // const [userInfo, setUserInfo] = useUser()
+    //
+    // useEffect(() => {
+    //     setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
+    // }, []);
 
     return(
         <div className={classes.loginContent}>
-            {(userInfo.isLogged) ? <Navigate to={"/home"}/> : <></>}
+            {useNavigateAuthorized(userInfo)}
             <div className={classes.loginContainer}>
                 <div className={classes.mainLogo}>
                     <img className="logo" src={BigLogo} alt="Logo"/>

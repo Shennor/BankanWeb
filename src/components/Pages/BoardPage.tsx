@@ -7,14 +7,17 @@ import {WorkspaceContext} from "../../context";
 import {ListsField} from "../UI/ListsField/ListsField";
 import {useNavigateUnauthorized} from "../../hooks/navigate";
 import {useWorkspace} from "../../hooks/workspace";
-import {useContext} from "react";
-import {useUser} from "../../hooks/user";
+import {store} from "../../redux/store";
 
 export const BoardPage = (props: any) => {
     const id = useParams().id
     const [board, setBoard] = useBoard(id as unknown as number)
-    const [userInfo, setUserInfo] = useUser()
     const [workspace, setWorkspace] = useWorkspace()
+
+    let userInfo = store.getState()
+    const unsubscribe = store.subscribe(() => {
+        userInfo = store.getState()
+    })
 
     let element = (board.info.id != -1)? <>
         <div className={"topRow"}>

@@ -2,9 +2,10 @@ import React, {FC, MouseEventHandler, useContext, useEffect, useState} from "rea
 import {login} from "../../controllers/AuthController";
 
 import classes from "../../css/form.module.css"
-import { CianButton } from "../UI/Button/button";
+import {CianButton} from "../UI/Button/button";
 import Cookies from "js-cookie";
-import {useUser} from "../../hooks/user";
+import {SET_USER, store} from "../../redux/store";
+import {useDispatch} from "react-redux";
 
 export interface ILoginInput {
     email: string,
@@ -17,24 +18,32 @@ const LoginForm: FC = () => {
         password: ""
     })
 
-    const [userInfo, setUserInfo] = useUser()
+    const [userInfo, setUserInfo] = useState(store.getState())
 
-    useEffect(() => {
-        setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
-    }, []);
+
+    // const [userInfo, setUserInfo] = useUser()
+    //
+    // useEffect(() => {
+    //     setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
+    // }, []);
 
     const signIn: MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault()
+        console.log(userInfo)
         login(input.email, input.password)
             .catch(() => alert("Server error while trying to sign in."))
             .then(loginResponse => {
-                setUserInfo({
-                    username: loginResponse!.username,
-                    login: loginResponse!.login,
-                    id: loginResponse!.id,
-                    isLogged: true
+                store.dispatch({
+                    type: SET_USER, new_user: {
+                        username: loginResponse!.username,
+                        login: loginResponse!.login,
+                        id: loginResponse!.id,
+                        isLogged: true,
+                        token: loginResponse!.accessToken
+                    }
                 })
-                Cookies.set("token", loginResponse!.accessToken)
+                console.log(userInfo)
+                // Cookies.set("token", loginResponse!.accessToken)
                 // localStorage.setItem("token", loginResponse!.accessToken)
             })
     }

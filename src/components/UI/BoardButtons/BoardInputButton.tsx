@@ -3,7 +3,7 @@ import React, {FC, FormEvent, useContext, useEffect, useState} from "react";
 import {WorkspaceContext} from "../../../context";
 import {createBoard} from "../../../controllers/BoardController";
 import {refreshWorkspace} from "../../../hooks/workspace";
-import {useUser} from "../../../hooks/user";
+import {store} from "../../../redux/store";
 
 interface IBoardInputButtonProps {
     setCreationState: React.Dispatch<React.SetStateAction<boolean>>
@@ -11,11 +11,11 @@ interface IBoardInputButtonProps {
 
 export const BoardInputButton: FC<IBoardInputButtonProps> = (props: IBoardInputButtonProps) => {
     const [input, setInput] = useState({boardName: ""})
-    const [userInfo, setUserInfo] = useUser()
 
-    useEffect(() => {
-        setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
-    }, []);
+    let userInfo = store.getState()
+    const unsubscribe = store.subscribe(() => {
+        userInfo = store.getState()
+    })
 
     const [workspace, setWorkspace] = useContext(WorkspaceContext)!
 

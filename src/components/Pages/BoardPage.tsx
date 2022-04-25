@@ -1,6 +1,5 @@
 import {useParams} from "react-router-dom";
 import {refreshBoard, useBoard} from "../../hooks/board";
-import {useContext, useEffect, useState} from "react";
 
 import "../../css/board-page.css"
 import {ButtonBarBoard} from "../UI/ButtonBar/ButtonBar";
@@ -8,6 +7,7 @@ import {UserContext, WorkspaceContext, UpdateContext} from "../../context";
 import {ListsField} from "../UI/ListsField/ListsField";
 import {useNavigateUnauthorized} from "../../hooks/navigate";
 import {useWorkspace} from "../../hooks/workspace";
+import {useContext} from "react";
 
 export const BoardPage = (props: any) => {
     const id = useParams().id

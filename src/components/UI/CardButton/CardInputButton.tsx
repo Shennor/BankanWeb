@@ -1,5 +1,5 @@
 import React, {FC, FormEvent, useContext, useState} from "react";
-import {UserContext, WorkspaceContext} from "../../../context";
+import {WorkspaceContext} from "../../../context";
 import "./card-buttons.css"
 
 interface ICardInputButtonProps {
@@ -8,7 +8,7 @@ interface ICardInputButtonProps {
 
 export const CardInputButton: FC<ICardInputButtonProps> = (props: ICardInputButtonProps) => {
     const [input, setInput] = useState({boardName: ""})
-    const [userInfo, setUserInfo] = useContext(UserContext)!
+    const userInfo = JSON.parse(localStorage.getItem("userInfo")!)
     const [workspace, setWorkspace] = useContext(WorkspaceContext)!
 
     function cardCreation(e: FormEvent<HTMLFormElement>) {

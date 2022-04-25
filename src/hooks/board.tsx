@@ -1,8 +1,6 @@
-import React, {useContext, useEffect, useState} from "react";
-import {IBoard, IBoardInfo, IList} from "../data/DTO";
-import {UserContext} from "../context";
-import {getBoard, getBoardRecursive} from "../controllers/BoardController";
-import {refreshWorkspace} from "./workspace";
+import React, {useEffect, useState} from "react";
+import {IBoard} from "../data/DTO";
+import { getBoardRecursive} from "../controllers/BoardController";
 
 export async function refreshBoard(id: number, setBoard: React.Dispatch<React.SetStateAction<IBoard>>) {
     const board = await getBoardRecursive(id)
@@ -20,7 +18,7 @@ export const useBoard = (id: number) => {
         }, lists: []
     })
     const [loaded, setLoaded] = useState(false)
-    const [userInfo, other] = useContext(UserContext)!
+    const userInfo = JSON.parse(localStorage.getItem("userInfo")!)
 
     useEffect(() => {
         if(loaded) return

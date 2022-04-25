@@ -1,6 +1,8 @@
 import {BoardInstance, ListInstance} from "./axios.instances";
 import {IBoard, ICard, IList, IWorkspace} from "../data/DTO";
 import {BoardInputButton} from "../components/UI/BoardButtons/BoardInputButton";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 // "Content-Type": "application/json",
 // "Connection": "keep-alive",
@@ -31,6 +33,7 @@ interface IListResponse {
 
 
 export const createBoard = async (name: string, description: string, workspaceId: number) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get("token")}`
     try {
         const response = await BoardInstance.post(`${workspaceId}`, {
             name: name,
@@ -45,6 +48,7 @@ export const createBoard = async (name: string, description: string, workspaceId
 // Promise.all()
 
 export const getBoardInfo = async (boardId: number) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get("token")}`
     try {
         const response = await BoardInstance.get(`info/${boardId}`)
         return response.data as IBoardInfoResponse
@@ -55,6 +59,7 @@ export const getBoardInfo = async (boardId: number) => {
 }
 
 export const getBoard = async (boardId: number) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get("token")}`
     try {
         const lists = await BoardInstance.get(`${boardId}`)
         return lists.data as IListInfoResponse[]
@@ -65,6 +70,7 @@ export const getBoard = async (boardId: number) => {
 }
 
 const getLists = async (lists: IList[]) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get("token")}`
     const responses = [];
     for (let i = 0; i < lists.length; i++) {
         responses.push(ListInstance.get(`${lists[i].info.id}`));
@@ -73,6 +79,7 @@ const getLists = async (lists: IList[]) => {
 }
 
 export const getBoardRecursive = async (boardId: number) => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get("token")}`
     let board: IBoard = {
         info: {
             id: -1,

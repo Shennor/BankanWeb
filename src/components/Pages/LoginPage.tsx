@@ -1,12 +1,12 @@
-import React, {FC, useContext} from "react";
+import React, {FC, useContext, useState} from "react";
 
 import classes from "../../css/login-page.module.css"
 import LoginForm from "../Forms/LoginForm";
 import {BigLogo} from "../../images/images";
 import {Navigate} from "react-router-dom";
-import {UserContext} from "../../context";
 import {IUserInfo} from "../../data/DTO";
 import {useNavigateAuthorized} from "../../hooks/navigate";
+import {set} from "js-cookie";
 
 
 // {setUserInfo({
@@ -18,17 +18,16 @@ import {useNavigateAuthorized} from "../../hooks/navigate";
 // })}
 
 export const LoginPage : FC = () => {
-    const [userInfo, setUserInfo] = useContext(UserContext)!
-
+    const [authorized, setAuthorized] = useState(false)
 
     return(
         <div className={classes.loginContent}>
-            {useNavigateAuthorized(userInfo)}
+            {(authorized) ? <Navigate to="/home"/> : <></>}
             <div className={classes.loginContainer}>
                 <div className={classes.mainLogo}>
                     <img className="logo" src={BigLogo} alt="Logo"/>
                 </div>
-                <LoginForm/>
+                <LoginForm setAuthorized={setAuthorized}/>
             </div>
         </div>
     )

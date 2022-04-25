@@ -1,5 +1,5 @@
 import React, {FC, FormEvent, useContext, useState} from "react";
-import {UpdateContext, UserContext, WorkspaceContext} from "../../../context";
+import {UpdateContext, WorkspaceContext} from "../../../context";
 import {createList} from "../../../controllers/ListController";
 import {IBoard, IBoardInfo, IList} from "../../../data/DTO";
 import {refreshWorkspace} from "../../../hooks/workspace";
@@ -14,7 +14,7 @@ interface IListInputButtonProps {
 export const ListInputButton: FC<IListInputButtonProps> = (props: IListInputButtonProps) => {
     const [input, setInput] = useState({name: "", description: ""})
     const [workspace, setWorkspace] = useContext(WorkspaceContext)!
-    const [userInfo, setUserInfo] = useContext(UserContext)!
+    const userInfo = JSON.parse(localStorage.getItem("userInfo")!)
 
     function listCreation(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()

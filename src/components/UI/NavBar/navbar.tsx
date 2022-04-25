@@ -1,19 +1,18 @@
 import React, {FC, MouseEventHandler, useContext, useEffect, useState} from 'react';
-import {UserContext} from "../../../context";
-import {HomeIconWhite, Logo} from "../../../images/images";
+import { Logo} from "../../../images/images";
 import {Link} from "react-router-dom";
-import {FaBars} from "react-icons/fa";
 
 import classes from './navbar.module.css'
-import {IUserInfo} from "../../../data/DTO";
 import Cookies from "js-cookie";
+import {useForceUpdate} from "../../../constants_utils";
+import {useUser} from "../../../hooks/user";
 
 interface UserMenuOptionalProps {
     isLogged: boolean
 }
 
 const UserMenuOptional: FC<UserMenuOptionalProps> = (props: UserMenuOptionalProps) => {
-    const [userInfo, setUserInfo] = useContext(UserContext)!
+    const userInfo = JSON.parse(localStorage.getItem("userInfo")!)
     if (props.isLogged) return (
         <ul className={classes.flexMenuList}>
             <li>
@@ -64,28 +63,20 @@ const NavButtonsOptional: FC<NavButtonsOptionalProps> = (props: NavButtonsOption
     )
 }
 
-function useForceUpdate(){
-    const [value, setValue] = useState(0); // integer state
-    return () => setValue(value => value + 1); // update the state to force render
-}
-
 const Navbar = () => {
-    const [userInfo, setUserInfo] = useContext(UserContext)!
-
-    const forceUpdate = useForceUpdate();
+    const [userInfo, refreshUserInfo] = useUser()
 
     const logout: MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault()
         Cookies.remove("token")
         // localStorage.removeItem("token")
-        setUserInfo(it => {
-            it.username = ""
-            it.login = ""
-            it.id = -1
-            it.isLogged = false
-            return it
-        })
-        forceUpdate()
+        localStorage.setItem("userInfo", JSON.stringify({
+            username: "",
+            login: "",
+            id: -1,
+            isLogged: false
+        }))
+        refreshUserInfo()
     }
 
     return (

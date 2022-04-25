@@ -4,15 +4,16 @@ import {useContext, useEffect, useState} from "react";
 
 import "../../css/board-page.css"
 import {ButtonBarBoard} from "../UI/ButtonBar/ButtonBar";
-import {UserContext, WorkspaceContext, UpdateContext} from "../../context";
+import {WorkspaceContext, } from "../../context";
 import {ListsField} from "../UI/ListsField/ListsField";
 import {useNavigateUnauthorized} from "../../hooks/navigate";
 import {useWorkspace} from "../../hooks/workspace";
+import {useUser} from "../../hooks/user";
 
 export const BoardPage = (props: any) => {
     const id = useParams().id
     const [board, setBoard] = useBoard(id as unknown as number)
-    const [userInfo, setUserInfo] = useContext(UserContext)!
+    const [userInfo, refreshUserInfo] = useUser()
     const [workspace, setWorkspace] = useWorkspace()
 
     let element = (board.info.id != -1)? <>
@@ -51,7 +52,7 @@ export const BoardPage = (props: any) => {
 
     return (
         <div>
-            {useNavigateUnauthorized(userInfo)}
+            {useNavigateUnauthorized()}
             <WorkspaceContext.Provider value={[workspace, setWorkspace]}>
                 {element}
             </WorkspaceContext.Provider>

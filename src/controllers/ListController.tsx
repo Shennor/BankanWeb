@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 
 export const getLists = async (boardId: number, token: string) => {
     try {
-        axios.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get("token")}`
+        axios.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(localStorage.getItem("userInfo")!).token}`
         const response = await BoardInstance.get(`${boardId}`)
         return response.data as IWorkspace
     } catch (e) {
@@ -17,7 +17,7 @@ export const getLists = async (boardId: number, token: string) => {
 
 export const createList = async (name: string, description: string, boardId: number) => {
     try {
-        axios.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get("token")}`
+        axios.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(localStorage.getItem("userInfo")!).token}`
         const response = await ListInstance.post(`${boardId}`,
             {name: name, description: description})
         return response.status

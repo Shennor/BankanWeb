@@ -16,10 +16,17 @@ export const ListInputButton: FC<IListInputButtonProps> = (props: IListInputButt
     const [input, setInput] = useState({name: "", description: ""})
     const [workspace, setWorkspace] = useContext(WorkspaceContext)!
     const [userInfo, setUserInfo] = useUser()
+    const [changed, setChanged] = useState(false)
 
     useEffect(() => {
         setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
-    }, []);
+        setChanged(false)
+    }, [changed]);
+
+    useEffect(() => {
+        localStorage.setItem("userInfo", JSON.stringify(userInfo))
+        setChanged(true)
+    }, [userInfo.isLogged])
 
     function listCreation(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()

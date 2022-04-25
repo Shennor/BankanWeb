@@ -7,13 +7,25 @@ import {WorkspaceContext} from "../../context";
 import {ListsField} from "../UI/ListsField/ListsField";
 import {useNavigateUnauthorized} from "../../hooks/navigate";
 import {useWorkspace} from "../../hooks/workspace";
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useUser} from "../../hooks/user";
 
 export const BoardPage = (props: any) => {
     const id = useParams().id
     const [board, setBoard] = useBoard(id as unknown as number)
     const [userInfo, setUserInfo] = useUser()
+    const [changed, setChanged] = useState(false)
+
+    useEffect(() => {
+        setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
+        setChanged(false)
+    }, [changed]);
+
+    useEffect(() => {
+        localStorage.setItem("userInfo", JSON.stringify(userInfo))
+        setChanged(true)
+    }, [userInfo.isLogged])
+
     const [workspace, setWorkspace] = useWorkspace()
 
     let element = (board.info.id != -1)? <>

@@ -11,6 +11,18 @@ import {useUser} from "../../hooks/user";
 
 export const HomePage = () => {
     const [userInfo, setUserInfo] = useUser()
+    const [changed, setChanged] = useState(false)
+
+    useEffect(() => {
+        setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
+        setChanged(false)
+    }, [changed]);
+
+    useEffect(() => {
+        localStorage.setItem("userInfo", JSON.stringify(userInfo))
+        setChanged(true)
+    }, [userInfo.isLogged])
+
     const [workspace, setWorkspace] = useWorkspace()
 
     return (

@@ -12,10 +12,17 @@ interface IBoardInputButtonProps {
 export const BoardInputButton: FC<IBoardInputButtonProps> = (props: IBoardInputButtonProps) => {
     const [input, setInput] = useState({boardName: ""})
     const [userInfo, setUserInfo] = useUser()
+    const [changed, setChanged] = useState(false)
 
     useEffect(() => {
         setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
-    }, []);
+        setChanged(false)
+    }, [changed]);
+
+    useEffect(() => {
+        localStorage.setItem("userInfo", JSON.stringify(userInfo))
+        setChanged(true)
+    }, [userInfo.isLogged])
 
     const [workspace, setWorkspace] = useContext(WorkspaceContext)!
 

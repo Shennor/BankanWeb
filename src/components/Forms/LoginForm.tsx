@@ -18,10 +18,17 @@ const LoginForm: FC = () => {
     })
 
     const [userInfo, setUserInfo] = useUser()
+    const [changed, setChanged] = useState(false)
 
     useEffect(() => {
         setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
-    }, []);
+        setChanged(false)
+    }, [changed]);
+
+    useEffect(() => {
+        localStorage.setItem("userInfo", JSON.stringify(userInfo))
+        setChanged(true)
+    }, [userInfo.isLogged])
 
     const signIn: MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault()
@@ -32,9 +39,10 @@ const LoginForm: FC = () => {
                     username: loginResponse!.username,
                     login: loginResponse!.login,
                     id: loginResponse!.id,
-                    isLogged: true
+                    isLogged: true,
+                    token: loginResponse!.accessToken
                 })
-                Cookies.set("token", loginResponse!.accessToken)
+                // Cookies.set("token", loginResponse!.accessToken)
                 // localStorage.setItem("token", loginResponse!.accessToken)
             })
     }

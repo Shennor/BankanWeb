@@ -14,24 +14,30 @@ function useForceUpdate() {
 
 const Navbar = () => {
     const [userInfo, setUserInfo] = useUser()
+    const [changed, setChanged] = useState(false)
 
     useEffect(() => {
         setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
-    }, []);
+        setChanged(false)
+    }, [changed]);
 
-    const forceUpdate = useForceUpdate();
+    useEffect(() => {
+        localStorage.setItem("userInfo", JSON.stringify(userInfo))
+        setChanged(true)
+    }, [userInfo.isLogged])
+
 
     const logout: MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault()
-        Cookies.remove("token")
+        // Cookies.remove("token")
         // localStorage.removeItem("token")
         setUserInfo({
             username: "",
             login: "",
             id: -1,
-            isLogged: false
+            isLogged: false,
+            token: ""
         })
-        forceUpdate()
     }
 
     return (
@@ -45,7 +51,7 @@ const Navbar = () => {
                             </Link>
                         </div>
                         <div className={classes.navigation}>
-                            {(Cookies.get("token") != undefined) ?
+                            {(userInfo.isLogged) ?
                                 <ul className={classes.flexMenuList}>
                                     <li>
                                         <Link to='/home'>
@@ -64,7 +70,7 @@ const Navbar = () => {
                                 : <ul/>}
                         </div>
                         <div className="header-login">
-                            {(Cookies.get("token") === undefined) ?
+                            {(!userInfo.isLogged) ?
                                 <ul className={classes.flexButtonList}>
                                     <li>
                                         <button className={classes.navigationBtn}>

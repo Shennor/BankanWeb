@@ -5,6 +5,7 @@ export interface IUserInfo {
     login: string,
     isLogged: boolean,
     username: string,
+    token: string
 }
 
 export interface ILoginResponse {

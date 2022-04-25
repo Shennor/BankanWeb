@@ -4,9 +4,12 @@ import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 
 import './index.css';
+import {useUser} from "./hooks/user";
 
 
-function Main() {
+const Main = () => {
+
+    useUser(true)
 
     return (
             <App/>

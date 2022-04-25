@@ -1,5 +1,5 @@
 import {BoardInstance, ListInstance} from "./axios.instances";
-import {IBoard, ICard, IList, IWorkspace} from "../data/DTO";
+import {IBoard, ICard, IList, IUserInfo, IWorkspace} from "../data/DTO";
 import {BoardInputButton} from "../components/UI/BoardButtons/BoardInputButton";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -34,7 +34,7 @@ interface IListResponse {
 
 export const createBoard = async (name: string, description: string, workspaceId: number) => {
     try {
-        axios.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get("token")}`
+        axios.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(localStorage.getItem("userInfo")!).token}`
         const response = await BoardInstance.post(`${workspaceId}`, {
             name: name,
             description: description
@@ -49,7 +49,7 @@ export const createBoard = async (name: string, description: string, workspaceId
 
 export const getBoardInfo = async (boardId: number) => {
     try {
-        BoardInstance.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get("token")}`
+        BoardInstance.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(localStorage.getItem("userInfo")!).token}`
         const response = await BoardInstance.get(`info/${boardId}`)
         return response.data as IBoardInfoResponse
     } catch (error) {
@@ -60,7 +60,7 @@ export const getBoardInfo = async (boardId: number) => {
 
 export const getBoard = async (boardId: number) => {
     try {
-        BoardInstance.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get("token")}`
+        BoardInstance.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(localStorage.getItem("userInfo")!).token}`
         const lists = await BoardInstance.get(`${boardId}`)
         return lists.data as IListInfoResponse[]
     } catch (error) {
@@ -70,7 +70,7 @@ export const getBoard = async (boardId: number) => {
 }
 
 const getLists = async (lists: IList[]) => {
-    ListInstance.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get("token")}`
+    ListInstance.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(localStorage.getItem("userInfo")!).token}`
     const responses = [];
     for (let i = 0; i < lists.length; i++) {
         responses.push(ListInstance.get(`${lists[i].info.id}`));
@@ -79,7 +79,7 @@ const getLists = async (lists: IList[]) => {
 }
 
 export const getBoardRecursive = async (boardId: number) => {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get("token")}`
+    axios.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(localStorage.getItem("userInfo")!).token}`
     let board: IBoard = {
         info: {
             id: -1,

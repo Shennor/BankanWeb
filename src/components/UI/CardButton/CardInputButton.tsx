@@ -9,12 +9,20 @@ interface ICardInputButtonProps {
 
 export const CardInputButton: FC<ICardInputButtonProps> = (props: ICardInputButtonProps) => {
     const [input, setInput] = useState({boardName: ""})
-    const [userInfo, setUserInfo] = useUser()
     const [workspace, setWorkspace] = useContext(WorkspaceContext)!
+
+    const [userInfo, setUserInfo] = useUser()
+    const [changed, setChanged] = useState(false)
 
     useEffect(() => {
         setUserInfo(JSON.parse(localStorage.getItem("userInfo")!));
-    }, []);
+        setChanged(false)
+    }, [changed]);
+
+    useEffect(() => {
+        localStorage.setItem("userInfo", JSON.stringify(userInfo))
+        setChanged(true)
+    }, [userInfo.isLogged])
 
     function cardCreation(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()

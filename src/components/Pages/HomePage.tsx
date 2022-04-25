@@ -12,16 +12,22 @@ export const HomePage = () => {
     const [userInfo, setUserInfo] = useContext(UserContext)!
     const [workspace, setWorkspace] = useWorkspace()
 
-    return(
+    return (
         <div>
             {useNavigateUnauthorized(userInfo)}
             <WorkspaceContext.Provider value={[workspace, setWorkspace]}>
-                <div className={"flexContainer"}>
-                    <h1 className={"greeting"}>Welcome, {userInfo.username}</h1>
-                    <SearchBar/>
-                </div>
-                <ButtonBar/>
-                <BoardsField/>
+                {(workspace.id != -1) ?
+                    <>
+                        <div className={"flexContainer"}>
+                            <h1 className={"greeting"}>Welcome, {userInfo.username}</h1>
+                            <SearchBar/>
+                        </div>
+                        <ButtonBar/>
+                        <BoardsField/>
+                    </>
+                    :
+                    <h1>Loading</h1>
+                }
             </WorkspaceContext.Provider>
         </div>
     )

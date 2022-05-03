@@ -12,7 +12,7 @@ export const HomePage = () => {
     const [userInfo, setUserInfo] = useContext(UserContext)!
     const [workspace, setWorkspace] = useWorkspace()
 
-    return(
+    return (
         <div>
             {useNavigateUnauthorized(userInfo)}
             <WorkspaceContext.Provider value={[workspace, setWorkspace]}>

@@ -1,4 +1,5 @@
 export const API = "http://localhost:8080/api/"
+export const USER = "user/"
 export const WORKSPACE = "workspace/"
 export const BOARD = "board/"
 export const LIST = "list/"

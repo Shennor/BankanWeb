@@ -1,10 +1,14 @@
 import axios from 'axios'
-import {API, AUTH, BOARD, LIST, WORKSPACE} from "../constants";
+import {API, AUTH, BOARD, LIST, USER, WORKSPACE} from "../constants";
 import {useContext} from "react"
 import {UserContext} from "../context";
 
 axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`
 axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*"
+
+export const UserInstance = axios.create({
+    baseURL: `${API}${USER}`
+})
 
 export const AuthInstance = axios.create({
     baseURL: `${API}${AUTH}`

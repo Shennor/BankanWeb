@@ -29,6 +29,8 @@ const LoginForm: FC = () => {
                     id: loginResponse!.id,
                     isLogged: true
                 })
+                localStorage.setItem("userId", String(loginResponse!.id))
+                localStorage.setItem("userLogin", loginResponse!.login)
                 localStorage.setItem("token", loginResponse!.accessToken)
             })
     }

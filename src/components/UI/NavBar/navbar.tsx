@@ -75,7 +75,9 @@ const Navbar = () => {
 
     const logout: MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault()
-        localStorage.removeItem("token")
+        localStorage.setItem("token", "")
+        localStorage.setItem("userId", "-1")
+        localStorage.setItem("userLogin", "")
         setUserInfo(it => {
             it.username = ""
             it.login = ""

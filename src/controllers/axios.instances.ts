@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {API, AUTH, BOARD, LIST, USER, WORKSPACE} from "../constants";
+import {API, AUTH, BOARD, LIST, USER, WORKSPACE, CARD} from "../constants";
 import {useContext} from "react"
 import {UserContext} from "../context";
 
@@ -24,4 +24,8 @@ export const BoardInstance = axios.create({
 
 export const ListInstance = axios.create({
     baseURL: `${API}${LIST}`,
+})
+
+export const CardInstance = axios.create({
+    baseURL: `${API}${CARD}`
 })

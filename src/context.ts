@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {IBoardInfo, ILoginResponse, IUserInfo, IWorkspace} from "./data/DTO";
+import {IBoard, IBoardInfo, ILoginResponse, IUserInfo, IWorkspace} from "./data/DTO";
 
 export type UserState = [
     IUserInfo,
@@ -12,9 +12,10 @@ export type WorkspaceState = [
 ];
 
 export type BoardState = [
-    IBoardInfo,
-    React.Dispatch<React.SetStateAction<IBoardInfo>>
+    IBoard,
+    React.Dispatch<React.SetStateAction<IBoard>>
 ];
+
 
 export type UpdateState = [
     boolean,

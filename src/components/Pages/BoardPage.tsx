@@ -4,34 +4,29 @@ import {useContext, useEffect, useState} from "react";
 
 import "../../css/board-page.css"
 import {ButtonBarBoard} from "../UI/ButtonBar/ButtonBar";
-import {UserContext, WorkspaceContext, UpdateContext} from "../../context";
+import {UserContext, WorkspaceContext, UpdateContext, BoardContext} from "../../context";
 import {ListsField} from "../UI/ListsField/ListsField";
 import {useNavigateUnauthorized} from "../../hooks/navigate";
 import {useWorkspace} from "../../hooks/workspace";
+import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
+import {BoardDescription} from "../UI/BoardDescription/BoardDescription";
+import {BoardName} from "../UI/BoardName/BoardName";
 
 export const BoardPage = (props: any) => {
     const id = useParams().id
     const [board, setBoard] = useBoard(id as unknown as number)
     const [userInfo, setUserInfo] = useContext(UserContext)!
-    const [workspace, setWorkspace] = useWorkspace()
+    const [loaded, setLoaded] = useState(false)
+    const [workspace, setWorkspace] = useWorkspace(userInfo.id, setLoaded)
 
-    let element = (board.info.id != -1)? <>
+    let boardContent = <WorkspaceContext.Provider value={[workspace, setWorkspace]}>
+        <BoardContext.Provider value={[board, setBoard]}>
         <div className={"topRow"}>
-            <h1 className={"boardName"}>Board name</h1>
-            <p className={"creationInfo"}>created</p>
+           <BoardName/>
+            <p className={"creationInfo"}>created somewhen by someone</p>
         </div>
         <div className={"middleRow"}>
-            <div className={"descriptionPart"}>
-                <h3>Description</h3>
-                <div className={"textField"}>
-                    <p className={"textInField"}>
-                        {board.info.description}
-                    </p>
-                    <button className={"editButton"}>
-                        <img/>
-                    </button>
-                </div>
-            </div>
+            <BoardDescription/>
             <div className={"collaboratorsPart"}>
                 <div className={"collaboratorsRow"}>
                     <h3>Collaborators</h3>
@@ -45,16 +40,17 @@ export const BoardPage = (props: any) => {
             </div>
         </div>
         <ButtonBarBoard/>
-        <ListsField board={board} setBoard={setBoard}/>
-    </>
-        : <p>Loading...</p>
+        <ListsField/>
+    </BoardContext.Provider>
+    </WorkspaceContext.Provider>
 
     return (
         <div>
             {useNavigateUnauthorized(userInfo)}
-            <WorkspaceContext.Provider value={[workspace, setWorkspace]}>
-                {element}
-            </WorkspaceContext.Provider>
+            {(loaded) ?
+            boardContent
+            :
+            <LoadingSpinner/>}
         </div>
     )
 }

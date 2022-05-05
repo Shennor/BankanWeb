@@ -1,6 +1,7 @@
 import {BoardInstance, ListInstance} from "./axios.instances";
 import {IBoard, ICard, IList, IWorkspace} from "../data/DTO";
 import {BoardInputButton} from "../components/UI/BoardButtons/BoardInputButton";
+import {ErrorType, IError} from "./errors";
 
 // "Content-Type": "application/json",
 // "Connection": "keep-alive",
@@ -42,7 +43,22 @@ export const createBoard = async (name: string, description: string, workspaceId
         return undefined
     }
 }
-// Promise.all()
+
+export const editBoard = async (boardId: number, name: string, description: string) => {
+    try{
+        const response = await BoardInstance.patch(`edit/${boardId}`, {
+            name: name,
+            description: description
+        })
+        if(response.status == 401)
+            return {errorType: ErrorType.unauthorized} as IError
+        return response.status == 200
+    }
+    catch (error) {
+        console.log(error)
+        return undefined
+    }
+}
 
 export const getBoardInfo = async (boardId: number) => {
     try {

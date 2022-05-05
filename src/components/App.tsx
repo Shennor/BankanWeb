@@ -7,6 +7,7 @@ import Navbar from "./UI/NavBar/navbar";
 import {UserContext} from "../context";
 import {BoardPage} from "./Pages/BoardPage";
 import {getUserInfo, instanceOfUserInfoResponse, UserInfoResponse} from "../controllers/AuthController";
+import LoadingSpinner from "./UI/LoadingSpinner/LoadingSpinner";
 
 // context API instead of redux
 
@@ -51,9 +52,10 @@ export default function App() {
                     <Route path="/board/:id" element={<BoardPage/>}/>
                     <Route path="/group" element={<h1>Group page</h1>}/>
                     <Route path="/search/:input" element={<h1>Search page</h1>}/>
+                    <Route path="/about" element={<LoadingSpinner/>}/>
                 </Routes>
             </BrowserRouter>
-            : <h1>Loading...</h1>
+            : <LoadingSpinner/>
         }</>
 );
 }

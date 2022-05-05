@@ -22,7 +22,7 @@ export async function getUserInfo(userId: number){
     try {
         let res = await UserInstance.get(`${userId}`)
         if (res.status == 401)
-            return { type: ErrorType.unauthorized } as IError
+            return { errorType: ErrorType.unauthorized } as IError
         return res.data as UserInfoResponse
     }
     catch (error) {

@@ -1,15 +1,11 @@
 
 
 .topRow {
-    padding: 20px 3%;
+    padding: 20px 20px;
     display: flex;
     justify-content: space-between;
 }
 
-.boardName {
-    font-family: Roboto-Regular, sans-serif;
-    font-size: 32px;
-}
 
 .creationInfo {
 }
@@ -20,28 +16,6 @@
     display: flex;
     justify-content: space-between;
 
-}
-
-.descriptionPart {
-    display: flex;
-    flex-direction: column;
-    padding-right: 10px;
-}
-
-.descriptionPart h3 {
-    margin: 10px;
-}
-
-.textField {
-    width: 100%;
-    border-radius: 10px;
-    background: #F6F5F5;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-}
-
-.textInField {
-    word-break: break-all;
-    padding: 10px;
 }
 
 .collaboratorsPart {

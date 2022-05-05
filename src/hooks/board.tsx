@@ -4,9 +4,13 @@ import {UserContext} from "../context";
 import {getBoard, getBoardRecursive} from "../controllers/BoardController";
 import {refreshWorkspace} from "./workspace";
 
-export async function refreshBoard(id: number, setBoard: React.Dispatch<React.SetStateAction<IBoard>>) {
+export async function refreshBoard(id: number, setBoard: React.Dispatch<React.SetStateAction<IBoard>>,
+                                   setLoaded?: React.Dispatch<React.SetStateAction<boolean>>) {
     const board = await getBoardRecursive(id)
     setBoard(prev => board)
+    if (setLoaded) {
+        setLoaded(true)
+    }
 }
 
 export const useBoard = (id: number) => {
@@ -24,11 +28,11 @@ export const useBoard = (id: number) => {
 
     useEffect(() => {
         if(loaded) return
-        refreshBoard(userInfo.id, setBoard)
+        refreshBoard(id, setBoard)
             .catch((e) => console.error("Error while loading board: " + e))
             .then()
         setLoaded(true)
-    })
+    }, [])
 
 return [board, setBoard] as [IBoard, React.Dispatch<React.SetStateAction<IBoard>>]
 }

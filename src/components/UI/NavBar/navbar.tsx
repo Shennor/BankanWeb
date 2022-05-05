@@ -6,6 +6,7 @@ import {FaBars} from "react-icons/fa";
 
 import classes from './navbar.module.css'
 import {IUserInfo} from "../../../data/DTO";
+import {useForceUpdate} from "../../../utils";
 
 interface UserMenuOptionalProps {
     isLogged: boolean
@@ -61,11 +62,6 @@ const NavButtonsOptional: FC<NavButtonsOptionalProps> = (props: NavButtonsOption
             </li>
         </ul>
     )
-}
-
-function useForceUpdate(){
-    const [value, setValue] = useState(0); // integer state
-    return () => setValue(value => value + 1); // update the state to force render
 }
 
 const Navbar = () => {

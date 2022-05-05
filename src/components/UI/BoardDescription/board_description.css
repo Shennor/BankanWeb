@@ -1,0 +1,41 @@
+
+.descriptionPart {
+    display: flex;
+    flex-direction: column;
+    padding-right: 10px;
+}
+
+.descriptionPart h3 {
+    margin: 10px;
+}
+
+.textField {
+    width: 90%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    background: #F6F5F5;
+    padding: 10px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.descriptionPart img {
+    margin-left: 5px;
+}
+
+.textField button {
+    visibility: hidden;
+}
+
+.textField:hover button {
+    visibility: visible;
+}
+
+.textField input {
+
+}
+
+.textInField {
+    word-break: break-all;
+}
+

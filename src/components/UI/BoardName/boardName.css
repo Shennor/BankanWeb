@@ -1,0 +1,22 @@
+
+.boardName {
+    font-family: Roboto-Regular, sans-serif;
+    font-size: 32px;
+}
+
+.nameInput {
+    font-size: 32px;
+}
+
+.nameField {
+    display: flex;
+}
+
+.nameField button {
+    margin-left: 20px;
+    visibility: hidden;
+}
+
+.nameField:hover button {
+    visibility: visible;
+}

@@ -71,17 +71,17 @@ const SignUpForm: FC<SignUpFormProps> = ({setH1State}) => {
                     </li>
                     <li className={classes.inputContainer}>
                         <h5>Email:</h5>
-                        <input type="text" placeholder="Email" required={true} maxLength={40}
+                        <input type="email" placeholder="Email" required={true} maxLength={40}
                                onChange={(e) => {input.email = e.target.value}}/>
                     </li>
                     <li className={classes.inputContainer}>
                         <h5>Password:</h5>
-                        <input type="text" placeholder="Password" required={true} maxLength={50}
+                        <input type="password" placeholder="Password" required={true} maxLength={50}
                                onChange={(e) => {input.password = e.target.value}}/>
                     </li>
                     <li className={classes.inputContainer}>
                         <h5></h5>
-                        <input type="text" placeholder="Confirm password" required={true} maxLength={50}
+                        <input type="password" placeholder="Confirm password" required={true} maxLength={50}
                                onChange={(e) => {input.confirmPassword = e.target.value}}/>
                     </li>
                 </ul>

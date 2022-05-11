@@ -123,5 +123,17 @@ export const getBoardRecursive = async (boardId: number) => {
     return board
 }
 
+export const deleteBoard = async (boardId: number) => {
+    try {
+        const response = await BoardInstance.delete(`delete/${boardId}`)
+        if(response.status == 401)
+            return {errorType: ErrorType.unauthorized} as IError
+        return response.status == 200
+    } catch (e) {
+        console.error(e)
+        return undefined
+    }
+}
+
 // "*/api/workspace/user/{userId}" - get list of boards of user with userId
 //

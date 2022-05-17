@@ -35,7 +35,6 @@ export const BoardDescription = () => {
                 console.error(error)
             })
         setEdition(false)
-
     }
 
     // TODO delete this

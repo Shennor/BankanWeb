@@ -1,12 +1,28 @@
 import {WorkspaceInstance} from "./axios.instances";
-import {IWorkspace} from "../data/DTO";
+import {IMedia, IWorkspace} from "../data/DTO";
+import {ErrorType, IError} from "./errors";
 
 
-export const getWorkspace = (userId: number) => {
-    return WorkspaceInstance.get(`user/${userId}`)
-        .then((response) => response.data as IWorkspace)
-        .catch((error) => {
-            console.log(error)
-            return undefined
-        })
+export const getWorkspace = async (userId: number) => {
+    try {
+        const response = await WorkspaceInstance.get(`user/${userId}`)
+        if (response.status === 401)
+            return {errorType: ErrorType.unauthorized} as IError
+        return response.data as IWorkspace
+    } catch (e) {
+        console.error(e)
+        return undefined
+    }
+}
+
+export const getAllMedia = async (workspaceId: number) => {
+    try {
+        const resp = await WorkspaceInstance.get(`media/${workspaceId}`)
+        if(resp.status === 401)
+            return {errorType: ErrorType.unauthorized} as IError
+        return resp.data as IMedia
+    } catch (error) {
+        console.error(error)
+        return undefined
+    }
 }

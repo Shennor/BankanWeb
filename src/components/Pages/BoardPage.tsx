@@ -1,25 +1,24 @@
 import {useParams} from "react-router-dom";
 import {refreshBoard, useBoard} from "../../hooks/board";
-import {useContext, useEffect, useState} from "react";
+import {useContext, useState} from "react";
 
 import "../../css/board-page.css"
 import {ButtonBarBoard} from "../UI/ButtonBar/ButtonBar";
-import {UserContext, WorkspaceContext, UpdateContext, BoardContext} from "../../context";
+import {UserContext, BoardContext, WorkspaceContext} from "../../context";
 import {ListsField} from "../UI/ListsField/ListsField";
 import {useNavigateUnauthorized} from "../../hooks/navigate";
-import {useWorkspace} from "../../hooks/workspace";
 import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 import {BoardDescription} from "../UI/BoardDescription/BoardDescription";
 import {BoardName} from "../UI/BoardName/BoardName";
 
 export const BoardPage = (props: any) => {
     const id = useParams().id
-    const [board, setBoard] = useBoard(id as unknown as number)
-    const [userInfo, setUserInfo] = useContext(UserContext)!
     const [loaded, setLoaded] = useState(false)
-    const [workspace, setWorkspace] = useWorkspace(userInfo.id, setLoaded)
+    const [board, setBoard] = useBoard(id as unknown as number, setLoaded)
+    const [userInfo, setUserInfo] = useContext(UserContext)!
+    const [workspace, setWorkspace] = useContext(WorkspaceContext)!
 
-    let boardContent = <WorkspaceContext.Provider value={[workspace, setWorkspace]}>
+    let boardContent =
         <BoardContext.Provider value={[board, setBoard]}>
         <div className={"topRow"}>
            <BoardName/>
@@ -42,7 +41,6 @@ export const BoardPage = (props: any) => {
         <ButtonBarBoard/>
         <ListsField/>
     </BoardContext.Provider>
-    </WorkspaceContext.Provider>
 
     return (
         <div>

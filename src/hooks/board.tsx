@@ -13,7 +13,7 @@ export async function refreshBoard(id: number, setBoard: React.Dispatch<React.Se
     }
 }
 
-export const useBoard = (id: number) => {
+export const useBoard = (id: number, setLoaded: React.Dispatch<React.SetStateAction<boolean>>) => {
     const [board, setBoard] = useState<IBoard>({
         info: {
             id: -1,
@@ -23,11 +23,9 @@ export const useBoard = (id: number) => {
             creationData: BigInt(0)
         }, lists: []
     })
-    const [loaded, setLoaded] = useState(false)
     const [userInfo, other] = useContext(UserContext)!
 
     useEffect(() => {
-        if(loaded) return
         refreshBoard(id, setBoard)
             .catch((e) => console.error("Error while loading board: " + e))
             .then()

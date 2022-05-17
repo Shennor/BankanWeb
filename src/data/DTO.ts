@@ -1,5 +1,3 @@
-
-
 export interface IUserInfo {
     id: number,
     login: string,
@@ -40,9 +38,9 @@ export interface ICard {
     id: number,
     name: string,
     color: number | undefined,
-    creationData: number,
+    creationData: Date,
     deadline: number | undefined,
-    creatorId: number,
+    creatorId: Date,
     cardContent: string | undefined
 }
 
@@ -54,6 +52,24 @@ export interface IList {
 export interface IBoard {
     info: IBoardInfo,
     lists: IList[]
+}
+
+export interface IListInBoard {
+    boardId: number,
+    listEntity: IListInfo
+}
+
+
+export interface ICardInBoard {
+    boardId: number,
+    listId: number,
+    cardEntity: ICard
+}
+
+export interface IMedia {
+    boards: IBoardInfo[]
+    lists: IListInBoard[]
+    cards: ICardInBoard[]
 }
 
 

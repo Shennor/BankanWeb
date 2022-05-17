@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import './index.css';
 import {UserContext, WorkspaceContext} from './context';
 import {IUserInfo} from "./data/DTO";
+import {getUserInfo, instanceOfUserInfoResponse} from "./controllers/AuthController";
+import LoadingSpinner from "./components/UI/LoadingSpinner/LoadingSpinner";
 
 
 function Main() {
@@ -15,13 +17,42 @@ function Main() {
         id: -1,
         isLogged: false,
     })
+    const [isLoaded, setLoaded] = useState(false)
 
+    const updateUserInfo = () => {
+        let info = getUserInfo(localStorage.getItem("userId") as unknown as number)
+            .catch((error) => console.log(error))
+            .then((info) => {
+                if (instanceOfUserInfoResponse(info)) {
+                    setUserInfo({
+                        id: info.id,
+                        login: localStorage.getItem("userLogin")!,
+                        isLogged: true,
+                        username: info.name,
+                    })
+                }
+                setLoaded(true)
+            })
+
+    }
+
+    // check if token is valid -> import user
+    useEffect(() => {
+        if (localStorage.getItem("token") == null) localStorage.setItem("token", "")
+        if (localStorage.getItem("userId") == null) localStorage.setItem("userId", "-1")
+        if (localStorage.getItem("userLogin") == null) localStorage.setItem("userLogin", "")
+        updateUserInfo()
+    }, [])
 
     return (
         <UserContext.Provider value={[userInfo, setUserInfo]}>
-            <App/>
+            {(isLoaded) ?
+                <App/>
+                :
+                <LoadingSpinner/>
+            }
         </UserContext.Provider>
-)
+    )
 }
 
 ReactDOM.render(

@@ -19,13 +19,16 @@
 .infoContent {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .infoContent .editButton {
+    margin-right: 10px;
     visibility: hidden;
 }
 
 .infoContent:hover .editButton {
+    margin-right: 10px;
     visibility: visible;
 }
 

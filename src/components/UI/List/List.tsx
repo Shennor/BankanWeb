@@ -9,6 +9,7 @@ import {editList} from "../../../controllers/ListController";
 import {refreshBoard} from "../../../hooks/board";
 import {BoardContext} from "../../../context";
 import {CardInputButton} from "../CardButton/CardInputButton";
+import {Menu, MenuButton, MenuItem} from "@szhsin/react-menu";
 
 interface IListProps {
     key: number
@@ -21,6 +22,10 @@ export const List = (props: IListProps) => {
     const [nameInput, setNameInput] = useState("")
     const [descriptionInput, setDescriptionInput] = useState("")
     const [board, setBoard] = useContext(BoardContext)!
+
+    const deleteCurrentList = () => {
+
+    }
 
     const editListInfo = () => {
         editList(props.list.info.id, nameInput, descriptionInput)
@@ -46,13 +51,28 @@ export const List = (props: IListProps) => {
         return <></>
     }
 
-
     return (
         <div className={"listField"}>
             <div className={"infoContent"}>
                 {(!isBeingEdited) ? <>
                         {(loaded) ?
-                            <h4 className={"listName"}>{props.list.info.name}</h4>
+                            <>
+                                <h4 className={"listName"}>{props.list.info.name}</h4>
+                                <div className={"editButton"}>
+                                <Menu menuButton={<MenuButton><img src={EditIcon}/></MenuButton>}>
+                                    <MenuItem onClick={() => {
+                                        setNameInput(props.list.info.name);
+                                        setDescriptionInput(props.list.info.description);
+                                        setEdition(true)
+                                    }}>Edit</MenuItem>
+                                    <MenuItem onClick={() => deleteCurrentList()}>Delete</MenuItem>
+                                    {/*<SubMenu label="Move">*/}
+                                    {/*    <MenuItem>Up</MenuItem>*/}
+                                    {/*    <MenuItem>Down</MenuItem>*/}
+                                    {/*</SubMenu>*/}
+                                </Menu>
+                                </div>
+                            </>
                             :
                             <LoadingSpinner/>
                         }
@@ -71,13 +91,6 @@ export const List = (props: IListProps) => {
                         </div>
                     </form>
                 }
-                <button className={"editButton"} onClick={() => {
-                    setNameInput(props.list.info.name);
-                    setDescriptionInput(props.list.info.description);
-                    setEdition(true)
-                }}>
-                    <img src={EditIcon}/>
-                </button>
             </div>
             <div className={"delimiter"}/>
             <div className={"contentField"}>

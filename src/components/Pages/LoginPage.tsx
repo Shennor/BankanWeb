@@ -20,7 +20,6 @@ import {useNavigateAuthorized} from "../../hooks/navigate";
 export const LoginPage : FC = () => {
     const [userInfo, setUserInfo] = useContext(UserContext)!
 
-
     return(
         <div className={classes.loginContent}>
             {useNavigateAuthorized(userInfo)}

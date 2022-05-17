@@ -1,0 +1,37 @@
+
+.profileContainer {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 20px;
+    font-family: Roboto;
+
+}
+
+.profileStatusField {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 300px;
+}
+
+.imageField {
+
+}
+
+.statistics {
+    text-wrap: normal;
+    margin: 20px 20px;
+
+}
+
+.profileInfoField {
+    max-width: 300px;
+    text-wrap: normal;
+
+}
+
+.settingsField {
+    max-width: 300px;
+    text-wrap: normal;
+
+}

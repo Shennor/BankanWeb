@@ -25,8 +25,8 @@ const UserMenuOptional: FC<UserMenuOptionalProps> = (props: UserMenuOptionalProp
             <li>
                 <Link to='/profile'>
                     Profile
-                    <img className={classes.profileImg}/>
-                    {userInfo.username}
+                    {/*<img className={classes.profileImg}/>*/}
+                    {/*{userInfo.username}*/}
                 </Link>
             </li>
         </ul>)
@@ -106,8 +106,8 @@ const Navbar = () => {
                                     <li>
                                         <Link to='/profile'>
                                             Profile
-                                            <img className={classes.profileImg}/>
-                                            {userInfo.username}
+                                            {/*<img className={classes.profileImg}/>*/}
+                                            {/*{userInfo.username}*/}
                                         </Link>
                                     </li>
                                 </ul>

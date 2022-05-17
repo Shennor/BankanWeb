@@ -12,6 +12,7 @@ import {UserContext, WorkspaceContext} from "../context";
 import {Navigate} from "react-router-dom";
 import {useNavigateUnauthorized} from "../hooks/navigate";
 import {AboutPage} from "./Pages/AboutPage";
+import {ProfilePage} from "./Pages/ProfilePage";
 
 
 
@@ -36,6 +37,7 @@ export default function App() {
                     <Route path="/group" element={<h1>Group page</h1>}/>
                     <Route path="/search" element={<SearchPage/>}/>
                     <Route path="/about" element={<AboutPage/>}/>
+                    <Route path="/profile" element={<ProfilePage/>}/>
                 </Routes>
             </BrowserRouter>
             : <LoadingSpinner/>

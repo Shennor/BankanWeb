@@ -56,8 +56,8 @@ export const SearchPage = () => {
                     :
                     <>
                         {SearchBar(setInput, setSearch)}
+                        <h1>{(input == "") ? "All media:" : `Results for searching "${input}":`}</h1>
                         <div className={"searchResults"}>
-                            <h1>{(input == "") ? "All media:" : `Results for searching "${input}":`}</h1>
                             <h2><b>Boards</b></h2>
                             <div className={"boardsResults"}>
                                 {

@@ -1,31 +1,48 @@
 
-.searchPage{
+.searchPage {
+    margin: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.searchPage h1 {
     margin-top: 20px;
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*justify-content: center;*/
-    /*vertical-align: center;*/
 }
 
-.searchResults{
-    margin: 20px 10px
+.searchPage h2 {
+    margin: 10px 0px;
 }
 
-.searchResults h2{
-    align-self: center;
+.searchResults {
+    margin: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.boardsResults{
+.searchResults h2 {
+
+}
+
+.boardsResults {
     display: flex;
     flex-wrap: wrap;
+    margin: 10px 10px;
+    justify-content: center;
 }
 
-.listsResults{
+.listsResults {
     display: flex;
     flex-wrap: wrap;
+    margin: 10px 10px;
+    justify-content: center;
 }
 
-.cardsResults{
+.cardsResults {
     display: flex;
     flex-wrap: wrap;
+    margin: 10px 10px;
+    justify-content: center;
+
 }

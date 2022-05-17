@@ -11,6 +11,7 @@ import {useWorkspace} from "../hooks/workspace";
 import {UserContext, WorkspaceContext} from "../context";
 import {Navigate} from "react-router-dom";
 import {useNavigateUnauthorized} from "../hooks/navigate";
+import {AboutPage} from "./Pages/AboutPage";
 
 
 
@@ -34,7 +35,7 @@ export default function App() {
                     <Route path="/board/:id" element={<BoardPage/>}/>
                     <Route path="/group" element={<h1>Group page</h1>}/>
                     <Route path="/search" element={<SearchPage/>}/>
-                    <Route path="/about" element={<LoadingSpinner/>}/>
+                    <Route path="/about" element={<AboutPage/>}/>
                 </Routes>
             </BrowserRouter>
             : <LoadingSpinner/>

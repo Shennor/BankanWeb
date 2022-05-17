@@ -7,24 +7,26 @@ import {Link} from "react-router-dom";
 export const ButtonBar = () => {
     return(
         <div className={"buttonBarHome"}>
+            {/*<GreyButton>*/}
+            {/*    <button>*/}
+            {/*        Text 1*/}
+            {/*    </button>*/}
+            {/*</GreyButton>*/}
+            {/*<GreyButton>*/}
+            {/*    <button>*/}
+            {/*        Text 2*/}
+            {/*    </button>*/}
+            {/*</GreyButton>*/}
+            {/*<GreyButton>*/}
+            {/*    <button>*/}
+            {/*        Text 3*/}
+            {/*    </button>*/}
+            {/*</GreyButton>*/}
             <GreyButton>
                 <button>
-                    Text 1
-                </button>
-            </GreyButton>
-            <GreyButton>
-                <button>
-                    Text 2
-                </button>
-            </GreyButton>
-            <GreyButton>
-                <button>
-                    Text 3
-                </button>
-            </GreyButton>
-            <GreyButton>
-                <button>
-                    Text 4
+                    <Link to={"/search"}>
+                    Search
+                    </Link>
                 </button>
             </GreyButton>
             <CianButton>

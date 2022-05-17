@@ -31,6 +31,14 @@ function Main() {
                         username: info.name,
                     })
                 }
+                // else {
+                //     setUserInfo({
+                //         username: "",
+                //         login: "",
+                //         id: -1,
+                //         isLogged: false,
+                //     })
+                // }
                 setLoaded(true)
             })
 
@@ -41,6 +49,7 @@ function Main() {
         if (localStorage.getItem("token") == null) localStorage.setItem("token", "")
         if (localStorage.getItem("userId") == null) localStorage.setItem("userId", "-1")
         if (localStorage.getItem("userLogin") == null) localStorage.setItem("userLogin", "")
+        if (localStorage.getItem("searchInput") == null) localStorage.setItem("searchInput", "")
         updateUserInfo()
     }, [])
 

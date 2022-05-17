@@ -10,6 +10,7 @@ import {SearchPage} from "./Pages/SearchPage";
 import {useWorkspace} from "../hooks/workspace";
 import {UserContext, WorkspaceContext} from "../context";
 import {Navigate} from "react-router-dom";
+import {useNavigateUnauthorized} from "../hooks/navigate";
 
 
 
@@ -18,11 +19,11 @@ import {Navigate} from "react-router-dom";
 export default function App() {
     const [userInfo, setUserInfo] = useContext(UserContext)!
     const [isLoaded, setLoaded] = useState(false)
-    const [workspace, setWorkspace] = useWorkspace(userInfo.id, setLoaded)
+    const [workspace, setWorkspace] = useWorkspace(userInfo.id, setUserInfo, setLoaded)
 
     return (
         <WorkspaceContext.Provider value={[workspace, setWorkspace]}>
-        <>{(isLoaded) ?
+            <>{(isLoaded) ?
             <BrowserRouter>
                 <Navbar/>
                 <Routes>
@@ -32,7 +33,7 @@ export default function App() {
                     <Route path="/home" element={<HomePage/>}/>
                     <Route path="/board/:id" element={<BoardPage/>}/>
                     <Route path="/group" element={<h1>Group page</h1>}/>
-                    <Route path="/search/:input" element={<SearchPage/>}/>
+                    <Route path="/search" element={<SearchPage/>}/>
                     <Route path="/about" element={<LoadingSpinner/>}/>
                 </Routes>
             </BrowserRouter>

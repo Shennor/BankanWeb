@@ -1,0 +1,31 @@
+
+.searchPage{
+    margin-top: 20px;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: center;*/
+    /*vertical-align: center;*/
+}
+
+.searchResults{
+    margin: 20px 10px
+}
+
+.searchResults h2{
+    align-self: center;
+}
+
+.boardsResults{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.listsResults{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cardsResults{
+    display: flex;
+    flex-wrap: wrap;
+}

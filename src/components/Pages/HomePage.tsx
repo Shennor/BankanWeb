@@ -3,7 +3,7 @@ import {UserContext, WorkspaceContext} from "../../context";
 import {useWorkspace} from "../../hooks/workspace";
 import {BoardsField} from "../UI/BoardsField/BoardsField";
 import {ButtonBar} from "../UI/ButtonBar/ButtonBar";
-import { useNavigateUnauthorized} from "../../hooks/navigate";
+import {useNavigateUnauthorized} from "../../hooks/navigate";
 import {SearchBar} from "../UI/SearchBar/SearchBar";
 import "../../css/home-page.css"
 import {Navigate} from "react-router-dom";
@@ -17,7 +17,7 @@ export const HomePage = () => {
     let homeContent = <>
         <div className={"flexContainer"}>
             <h1 className={"greeting"}>Welcome, {userInfo.username}</h1>
-            <SearchBar/>
+            {/*<SearchBar/>*/}
         </div>
         <ButtonBar/>
         <BoardsField/>
@@ -26,6 +26,7 @@ export const HomePage = () => {
     return (
         <div>
             {useNavigateUnauthorized(userInfo)}
+            {console.error("1")}
             {homeContent}
         </div>
     )

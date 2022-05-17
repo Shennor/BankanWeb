@@ -7,8 +7,9 @@ import Select from "react-select/base";
 import {EditIcon} from "../../../images/images";
 import {deleteBoard} from "../../../controllers/BoardController";
 import {refreshWorkspace} from "../../../hooks/workspace";
-import {WorkspaceContext} from "../../../context";
+import {UserContext, WorkspaceContext} from "../../../context";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import {useNavigateUnauthorized} from "../../../hooks/navigate";
 
 interface IBoardButtonProps {
     boardInfo: IBoardInfo
@@ -24,6 +25,7 @@ export const BoardButton: FC<IBoardButtonProps> = (props) => {
     const [menuInput, setMenuInput] = useState("")
     const [loaded, setLoaded] = useState(true)
     const [workspace, setWorkspace] = useContext(WorkspaceContext)!
+    const [userInfo, setUserInfo] = useContext(UserContext)!
 
 
     const deleteCurrentBoard = () => {
@@ -32,7 +34,7 @@ export const BoardButton: FC<IBoardButtonProps> = (props) => {
                 if (res === true) {
                     console.log("Board deleted successfully")
                     setLoaded(false)
-                    refreshWorkspace(workspace.id, setWorkspace, setLoaded)
+                    refreshWorkspace(workspace.id, setWorkspace, setUserInfo, setLoaded)
                 } else {
                     alert("Something went wrong while trying to delete board")
                 }

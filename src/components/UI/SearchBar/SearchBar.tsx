@@ -2,10 +2,8 @@ import React, {FormEvent, useEffect, useState} from "react";
 import "./search-bar.css"
 import {Navigate} from "react-router-dom";
 
-export const SearchBar = () => {
-    const [searchSubmitted, setSearch] = useState(false)
-    const [input, setInput] = useState("")
-    let navigated = false
+export const SearchBar = (setInput: React.Dispatch<React.SetStateAction<string>>,
+                          setSearch: React.Dispatch<React.SetStateAction<boolean>>) => {
 
     const scrollInput = () => {
         const el = document.getElementById("scrolled-search-input")!;
@@ -13,19 +11,9 @@ export const SearchBar = () => {
         el.scrollLeft = el.scrollWidth
     }
 
-    useEffect(() => {
-        if(searchSubmitted){
-            setSearch(false)
-            navigated = true
-        }
-    }, [searchSubmitted])
-
     return (
         <>
-            {(navigated) ? <>
-                <Navigate to={`/search/${input}`}/>
-            </> : <></>}
-            <form className={"searchForm"} onSubmit={() => setSearch(prev => true)}>
+            <form className={"searchForm"} onSubmit={(e) => {e.preventDefault(); setSearch(prev => true)}}>
                 <input id={"scrolled-search-input"} className="searchInput" placeholder={"Type to search..."}
                        onChange={e => {
                            setInput(prev => e.target.value)

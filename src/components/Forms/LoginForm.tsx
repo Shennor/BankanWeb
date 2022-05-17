@@ -23,15 +23,15 @@ const LoginForm: FC = () => {
         login(input.email, input.password)
             .catch(() => alert("Server error while trying to sign in."))
             .then(loginResponse => {
+                localStorage.setItem("userId", String(loginResponse!.id))
+                localStorage.setItem("userLogin", loginResponse!.login)
+                localStorage.setItem("token", loginResponse!.accessToken)
                 setUserInfo({
                     username: loginResponse!.username,
                     login: loginResponse!.login,
                     id: loginResponse!.id,
                     isLogged: true
                 })
-                localStorage.setItem("userId", String(loginResponse!.id))
-                localStorage.setItem("userLogin", loginResponse!.login)
-                localStorage.setItem("token", loginResponse!.accessToken)
             })
     }
 

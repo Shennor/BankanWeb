@@ -3,6 +3,7 @@ import React, {FC, FormEvent, useContext, useState} from "react";
 import {UserContext, WorkspaceContext} from "../../../context";
 import {createBoard} from "../../../controllers/BoardController";
 import {refreshWorkspace} from "../../../hooks/workspace";
+import {useNavigateUnauthorized} from "../../../hooks/navigate";
 
 interface IBoardInputButtonProps {
     setCreationState: React.Dispatch<React.SetStateAction<boolean>>
@@ -18,7 +19,7 @@ export const BoardInputButton: FC<IBoardInputButtonProps> = (props: IBoardInputB
         console.log("createBoard called")
         createBoard(input.boardName, "", workspace.id)
             .catch(() => alert("Server error while trying to create board."))
-            .then(() => refreshWorkspace(userInfo.id, setWorkspace))
+            .then(() => refreshWorkspace(userInfo.id, setWorkspace, setUserInfo))
             .catch(() => alert("Error while updating new workspace from server to client."))
         props.setCreationState((perv) => false)
     }

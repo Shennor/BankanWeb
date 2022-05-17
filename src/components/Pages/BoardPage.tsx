@@ -3,7 +3,7 @@ import {refreshBoard, useBoard} from "../../hooks/board";
 import {useContext, useState} from "react";
 
 import "../../css/board-page.css"
-import {ButtonBarBoard} from "../UI/ButtonBar/ButtonBar";
+import {ButtonBar, ButtonBarBoard} from "../UI/ButtonBar/ButtonBar";
 import {UserContext, BoardContext, WorkspaceContext} from "../../context";
 import {ListsField} from "../UI/ListsField/ListsField";
 import {useNavigateUnauthorized} from "../../hooks/navigate";
@@ -38,8 +38,8 @@ export const BoardPage = (props: any) => {
                 </div>
             </div>
         </div>
-        <ButtonBarBoard/>
-        <ListsField/>
+            <ButtonBar/>
+            <ListsField/>
     </BoardContext.Provider>
 
     return (

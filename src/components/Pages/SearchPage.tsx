@@ -14,16 +14,16 @@ export const SearchPage = () => {
     const [workspace, setWorkspace] = useContext(WorkspaceContext)!
     const [mediaLoaded, setMediaLoaded] = useState(false)
     const [media, setMedia] = useMedia(workspace.id, setMediaLoaded)
-    const [searchSubmitted, setSearch] = useState(true)
+    const [searchSubmitted, setSearch] = useState(false)
     const [input, setInput] = useState(localStorage.getItem("searchInput")!)
 
     const [boardResults, setBoardRes] = useState([] as IBoardInfo[]);
     const [listResults, setListRes] = useState([] as IListInBoard[]);
     const [cardResults, setCardRes] = useState([] as ICardInBoard[]);
 
-    // useEffect(() => {
-    //     refreshMedia(workspace.id, setMedia, setLoaded)
-    // }, [])
+    useEffect(() => {
+        setSearch(true)
+        }, [mediaLoaded])
 
     useEffect(() => {
         if (searchSubmitted) {
@@ -42,7 +42,9 @@ export const SearchPage = () => {
                     || (value.cardEntity.id.toString().search(input) != -1)
                     || (value.cardEntity.cardContent != undefined && value.cardEntity.cardContent.search(input) != -1)
             }))
+
         }
+
         localStorage.setItem("searchInput", input)
         setSearch(false)
     }, [searchSubmitted])
@@ -55,7 +57,7 @@ export const SearchPage = () => {
                     <>
                         {SearchBar(setInput, setSearch)}
                         <div className={"searchResults"}>
-                            <h1>Results searching "{input}":</h1>
+                            <h1>{(input == "") ? "All media:" : `Results for searching "${input}":`}</h1>
                             <h2><b>Boards</b></h2>
                             <div className={"boardsResults"}>
                                 {

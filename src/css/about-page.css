@@ -5,8 +5,10 @@
 
 }
 
-.aboutPage img {
+.mainLogo {
     max-width: 400px;
+    height: auto;
+    min-width: 200px;
 }
 
 .aboutGreeting {
@@ -29,7 +31,8 @@
 
 .about {
     margin-left: 20px;
-    width: 45%;
+    max-width: 400px;
+    min-width: 200px;
     text-wrap: normal;
     line-height: 40px;
 }
